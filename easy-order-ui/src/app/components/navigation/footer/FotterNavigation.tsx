@@ -1,12 +1,6 @@
+import { FotterNavigationProps } from "@/types/comon";
 import { Footer } from "antd/es/layout/layout";
 import React from "react";
-
-type FotterNavigationProps = {
-  content?: string;
-  // podnaslov?: string | React.ReactNode;
-  // extra?: React.ReactNode;
-  // children?: React.ReactNode;
-};
 
 export default function FotterNavigation({ content }: FotterNavigationProps) {
   return (

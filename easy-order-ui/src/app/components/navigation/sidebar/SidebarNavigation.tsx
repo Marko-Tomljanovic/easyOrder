@@ -2,14 +2,7 @@ import { Layout } from "antd";
 import React from "react";
 import AuthMenu from "./AuthMenu";
 
-type SidebarNavigationProps = {
-  naslov?: string;
-  // podnaslov?: string | React.ReactNode;
-  // extra?: React.ReactNode;
-  // children?: React.ReactNode;
-};
-
-const SidebarNavigation = ({ naslov }: SidebarNavigationProps) => {
+const SidebarNavigation = () => {
   const { Sider } = Layout;
   return (
     <Sider

@@ -4,11 +4,7 @@ import { Header } from "antd/es/layout/layout";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { titleLookup } from "@/constants/lookups";
-
-type PageHeaderNavigationProps = {
-  subtitle?: string | React.ReactNode;
-  color?: string;
-};
+import { PageHeaderNavigationProps } from "@/types/comon";
 
 function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
   const pathname = usePathname();

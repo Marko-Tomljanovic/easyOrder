@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { logIn } from "@/app/redux/features/auth-slice";
+import { LoginDataType } from "@/types/comon";
+import { INIT_LOGIN_DATA } from "@/constants/initialStates";
 
 type FieldType = {
   username?: string;
@@ -10,20 +12,8 @@ type FieldType = {
   remember?: string;
 };
 
-type FormDataType = {
-  username: string;
-  password: string;
-  timestamp: number;
-};
-
-const INIT_FORMDATA = {
-  username: "",
-  password: "",
-  timestamp: 0,
-};
-
 export default function LogIn() {
-  const [formData, setFormData] = useState<FormDataType>(INIT_FORMDATA);
+  const [formData, setFormData] = useState<LoginDataType>(INIT_LOGIN_DATA);
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
