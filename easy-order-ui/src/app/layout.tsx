@@ -17,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout style={{ height: "100vh" }}>
-          <ReduxProvider>
+        <ReduxProvider>
+          <Layout style={{ height: "100vh" }}>
             <SidebarNavigation />
             <Layout>
-              <PageHeaderNavigation title="LogIn" />
+              <PageHeaderNavigation />
               <Content style={{ margin: "24px 16px 0", overflowY: "auto" }}>
                 <div
                   style={{
@@ -33,8 +33,8 @@ export default function RootLayout({
               </Content>
               <FotterNavigation />
             </Layout>
-          </ReduxProvider>
-        </Layout>
+          </Layout>
+        </ReduxProvider>
       </body>
     </html>
   );

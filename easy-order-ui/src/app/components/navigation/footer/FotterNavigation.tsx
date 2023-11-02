@@ -8,12 +8,10 @@ type FotterNavigationProps = {
   // children?: React.ReactNode;
 };
 
-function FotterNavigation({ content }: FotterNavigationProps) {
+export default function FotterNavigation({ content }: FotterNavigationProps) {
   return (
     <Footer style={{ textAlign: "center" }}>
       {content ? content : "Easy order ©2023 Created by Ma&To"}
     </Footer>
   );
 }
-
-export default FotterNavigation;
