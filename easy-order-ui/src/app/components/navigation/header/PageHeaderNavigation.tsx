@@ -2,6 +2,7 @@ import { RollbackOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 type PageHeaderNavigationProps = {
   title: string;
@@ -14,12 +15,19 @@ function PageHeaderNavigation({
   subtitle,
   color,
 }: PageHeaderNavigationProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isBackButton = ["/register"];
+
   return (
     <Header style={{ padding: 0, background: color ? color : "#FFFFFF" }}>
       <Flex gap={40} align="center" style={{ marginLeft: "2rem" }}>
-        <Button shape="circle" onClick={() => alert("nazad")}>
-          <RollbackOutlined />
-        </Button>
+        {isBackButton.includes(pathname) ? (
+          <Button shape="circle" onClick={() => router.back()}>
+            <RollbackOutlined />
+          </Button>
+        ) : null}
+
         <p style={{ fontWeight: "bold" }}>{title}</p>
         <p>{subtitle}</p>
       </Flex>

@@ -21,10 +21,7 @@ export default function RootLayout({
           <ReduxProvider>
             <SidebarNavigation />
             <Layout>
-              <PageHeaderNavigation
-                title="Uspostavljen redux"
-                subtitle="subtitle"
-              />
+              <PageHeaderNavigation title="LogIn" />
               <Content style={{ margin: "24px 16px 0", overflowY: "auto" }}>
                 <div
                   style={{

@@ -1,10 +1,6 @@
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import AuthMenu from "./AuthMenu";
 
 type SidebarNavigationProps = {
   naslov?: string;
@@ -26,22 +22,8 @@ const SidebarNavigation = ({ naslov }: SidebarNavigationProps) => {
         console.log(collapsed, type);
       }}
     >
-      {/* <div className="demo-logo-vertical" /> */}
-      <Menu
-        theme="dark"
-        mode="inline"
-        defaultSelectedKeys={["2"]}
-        items={[
-          UserOutlined,
-          VideoCameraOutlined,
-          UploadOutlined,
-          UserOutlined,
-        ].map((icon, index) => ({
-          key: String(index + 1),
-          icon: React.createElement(icon),
-          label: `nav ${index + 1}`,
-        }))}
-      />
+      <div>{/* <Tag color="default">easyOrder</Tag> */}</div>
+      <AuthMenu />;
     </Sider>
   );
 };
