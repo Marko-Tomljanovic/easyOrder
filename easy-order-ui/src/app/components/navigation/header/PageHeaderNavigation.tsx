@@ -14,7 +14,7 @@ function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
       return titleLookup[pathname as keyof typeof titleLookup];
     }
   };
-  const isBackButton = ["/dashboard"];
+  const isBackButton = ["/dashboard/"];
 
   return (
     <Header style={{ padding: 0, background: color ? color : "#FFFFFF" }}>

@@ -16,9 +16,8 @@ export default function Page() {
   };
   return (
     <>
-      <p>sss</p>
       <div style={{ width: "10rem" }}>
-        <Input onChange={handleChange} />
+        {/* <Input onChange={handleChange} /> */}
       </div>
       <div>username: {username} </div>
     </>

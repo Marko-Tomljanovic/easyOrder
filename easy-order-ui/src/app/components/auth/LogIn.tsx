@@ -5,6 +5,7 @@ import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { logIn } from "@/app/redux/features/auth-slice";
 import { LoginDataType } from "@/types/comon";
 import { INIT_LOGIN_DATA } from "@/constants/initialStates";
+import { useRouter } from "next/navigation";
 
 type FieldType = {
   username?: string;
@@ -14,6 +15,7 @@ type FieldType = {
 
 export default function LogIn() {
   const [formData, setFormData] = useState<LoginDataType>(INIT_LOGIN_DATA);
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -28,8 +30,13 @@ export default function LogIn() {
   };
 
   const onFinish = (values: any) => {
+    console.log(values);
+
     const timestamp = Date.now();
     setFormData({ ...values, timestamp: timestamp });
+    dispatch(logIn(values.username));
+    localStorage.setItem("isCurrentUser", "true");
+    router.push("/dashboard");
   };
 
   return (

@@ -1,27 +1,29 @@
-import { Menu } from "antd";
+import { Menu, MenuProps } from "antd";
 import React from "react";
-import { DatabaseOutlined, HomeOutlined } from "@ant-design/icons";
+import {
+  DatabaseOutlined,
+  HomeOutlined,
+  LineChartOutlined,
+} from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
-export default function AuthMenu() {
+export default function HomeMenu() {
+  const router = useRouter();
+  const onClick: MenuProps["onClick"] = (e) => {
+    if (e.key === "3") router.push("/dashboard");
+    if (e.key === "4") router.push("/dashboard");
+  };
   return (
     <Menu
       theme="dark"
       mode="inline"
-      defaultSelectedKeys={["1"]}
-      defaultOpenKeys={["0"]}
+      onClick={onClick}
+      defaultSelectedKeys={["3"]}
+      defaultOpenKeys={["3"]}
       items={[
-        {
-          key: "0",
-          children: [
-            { key: "1", icon: <HomeOutlined />, label: "LogIn" },
-            { key: "2", icon: <DatabaseOutlined />, label: "Registracija" },
-          ],
-          icon: <HomeOutlined />,
-          label: "Autentifikacija",
-        },
-        // { key: "1", icon: <HomeOutlined />, label: "LogIn" },
-        // { key: "2", icon: <DatabaseOutlined />, label: "Registracija" },
-        // { key: "3", icon: <LineChartOutlined />, label: "Statistika" },
+        { key: "3", icon: <HomeOutlined />, label: "Dashboard" },
+        { key: "4", icon: <DatabaseOutlined />, label: "Stolovi" },
+        { key: "5", icon: <LineChartOutlined />, label: "Statistika" },
       ]}
     />
   );

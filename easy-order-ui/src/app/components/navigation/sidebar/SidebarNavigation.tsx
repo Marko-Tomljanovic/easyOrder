@@ -1,8 +1,15 @@
 import { Layout } from "antd";
 import React from "react";
 import AuthMenu from "./AuthMenu";
+import HomeMenu from "./HomeMenu";
+import { useAppSelector } from "@/app/redux/store";
 
 const SidebarNavigation = () => {
+  const user = localStorage.getItem("isCurrentUser");
+  const username = useAppSelector((state) => {
+    return state.authReducer.value.username;
+  });
+
   const { Sider } = Layout;
   return (
     <Sider
@@ -16,7 +23,7 @@ const SidebarNavigation = () => {
       }}
     >
       <div>{/* <Tag color="default">easyOrder</Tag> */}</div>
-      <AuthMenu />;
+      {user ? <HomeMenu /> : <AuthMenu />}
     </Sider>
   );
 };
