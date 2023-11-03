@@ -4,17 +4,17 @@ import AuthMenu from "./AuthMenu";
 import HomeMenu from "./HomeMenu";
 // import { useAppSelector } from "@/app/redux/store";
 
+export const getServerSideProps = async () => {
+  return {
+    ssr: false, // Disable SSR for this page
+  };
+};
+
 export default function SidebarNavigation() {
-  let user = "";
-  if (typeof window !== "undefined") {
-    const isCurrentUser = localStorage.getItem("isCurrentUser");
-    if (isCurrentUser) {
-      try {
-        user = JSON.parse(isCurrentUser);
-      } catch (error) {
-        console.error("Error parsing user data from localStorage:", error);
-      }
-    }
+  let user: boolean = false;
+  const isCurrentUser: any = localStorage.getItem("isCurrentUser");
+  if (isCurrentUser) {
+    user = true;
   }
 
   // const username = useAppSelector((state) => {

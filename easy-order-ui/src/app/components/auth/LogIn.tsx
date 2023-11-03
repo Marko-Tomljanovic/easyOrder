@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { logIn } from "@/app/redux/features/auth-slice";
 import { LoginDataType } from "@/types/comon";
@@ -16,6 +16,7 @@ type FieldType = {
 export default function LogIn() {
   const [formData, setFormData] = useState<LoginDataType>(INIT_LOGIN_DATA);
   const router = useRouter();
+  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -30,13 +31,18 @@ export default function LogIn() {
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
-
-    const timestamp = Date.now();
-    setFormData({ ...values, timestamp: timestamp });
-    dispatch(logIn(values.username));
-    localStorage.setItem("isCurrentUser", "true");
-    router.push("/dashboard");
+    if (values.username !== "marko") {
+      messageApi.open({
+        type: "error",
+        content: "Nepostojeći korisnik.",
+      });
+    } else {
+      const timestamp = Date.now();
+      setFormData({ ...values, timestamp: timestamp });
+      dispatch(logIn(values.username));
+      localStorage.setItem("isCurrentUser", values.username);
+      router.push("/dashboard");
+    }
   };
 
   return (
@@ -47,6 +53,7 @@ export default function LogIn() {
         alignItems: "center",
       }}
     >
+      {contextHolder}
       <Form
         name="basic"
         labelCol={{ span: 8 }}
