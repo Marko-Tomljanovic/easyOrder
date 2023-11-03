@@ -4,12 +4,6 @@ import AuthMenu from "./AuthMenu";
 import HomeMenu from "./HomeMenu";
 // import { useAppSelector } from "@/app/redux/store";
 
-export const getServerSideProps = async () => {
-  return {
-    ssr: false, // Disable SSR for this page
-  };
-};
-
 export default function SidebarNavigation() {
   let user: boolean = false;
   const isCurrentUser: any = localStorage.getItem("isCurrentUser");
