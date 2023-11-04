@@ -12,6 +12,5 @@ export type FotterNavigationProps = {
 };
 
 export type PageHeaderNavigationProps = {
-  subtitle?: string | React.ReactNode;
   color?: string;
 };

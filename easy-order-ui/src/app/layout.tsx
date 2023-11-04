@@ -36,6 +36,7 @@ export default function RootLayout({
                 <div
                   style={{
                     background: "#FFFFFF",
+                    padding: "1rem",
                   }}
                 >
                   {children}

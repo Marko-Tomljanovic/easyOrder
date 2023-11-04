@@ -6,6 +6,14 @@ export const titleLookup = {
   "/statistika": "Statistika",
 };
 
+export const subtitleLookup = {
+  "/": "",
+  "/register": "",
+  "/dashboard": "Praćenje narudžbi",
+  "/baza-artikala": "",
+  "/statistika": "",
+};
+
 export const keyLookup = {
   "/": "1",
   "/register": "2",

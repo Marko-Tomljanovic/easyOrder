@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import React from "react";
-import AuthMenu from "./AuthMenu";
-import HomeMenu from "./HomeMenu";
+import AuthMenu from "./menu/AuthMenu";
+import HomeMenu from "./menu/HomeMenu";
 // import { useAppSelector } from "@/app/redux/store";
 
 export default function SidebarNavigation() {

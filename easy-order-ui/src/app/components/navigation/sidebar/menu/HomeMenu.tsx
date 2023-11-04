@@ -6,10 +6,19 @@ import {
   LineChartOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { keyLookup } from "@/constants/lookups";
 
 export default function HomeMenu() {
   const router = useRouter();
+  const pathname = usePathname();
+  const currentKey = () => {
+    if (pathname) {
+      return keyLookup[pathname as keyof typeof keyLookup];
+    } else {
+      return "3";
+    }
+  };
   const onClick: MenuProps["onClick"] = (e) => {
     if (e.key === "3") router.push("/dashboard");
     if (e.key === "4") router.push("/baza-artikala");
@@ -25,7 +34,7 @@ export default function HomeMenu() {
       theme="dark"
       mode="inline"
       onClick={onClick}
-      defaultSelectedKeys={["3"]}
+      defaultSelectedKeys={[currentKey()]}
       // defaultOpenKeys={["3"]}
       items={[
         { key: "3", icon: <HomeOutlined />, label: "Dashboard" },

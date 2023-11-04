@@ -3,15 +3,21 @@ import { Button, Flex } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { titleLookup } from "@/constants/lookups";
+import { subtitleLookup, titleLookup } from "@/constants/lookups";
 import { PageHeaderNavigationProps } from "@/types/comon";
 
-function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
+function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
   const pathname = usePathname();
   const router = useRouter();
+
   const currentTitle = () => {
     if (pathname) {
       return titleLookup[pathname as keyof typeof titleLookup];
+    }
+  };
+  const currentSubtitle = () => {
+    if (pathname) {
+      return subtitleLookup[pathname as keyof typeof subtitleLookup];
     }
   };
   function hasMoreThanTwoSlashes() {
@@ -21,7 +27,7 @@ function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
 
   return (
     <Header style={{ padding: 0, background: color ? color : "#FFFFFF" }}>
-      <Flex gap={40} align="center" style={{ marginLeft: "2rem" }}>
+      <Flex gap={35} align="center" style={{ marginLeft: "2rem" }}>
         {hasMoreThanTwoSlashes() ? (
           <Button shape="circle" onClick={() => router.back()}>
             <RollbackOutlined />
@@ -29,7 +35,9 @@ function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
         ) : null}
 
         <p style={{ fontWeight: "bold" }}>{currentTitle()}</p>
-        <p>{subtitle}</p>
+        <p className="gray-5" style={{ fontSize: "12px", color: "#8c8c8c" }}>
+          {currentSubtitle()}
+        </p>
       </Flex>
     </Header>
   );
