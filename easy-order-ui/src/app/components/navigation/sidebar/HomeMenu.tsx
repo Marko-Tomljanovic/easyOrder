@@ -12,23 +12,24 @@ export default function HomeMenu() {
   const router = useRouter();
   const onClick: MenuProps["onClick"] = (e) => {
     if (e.key === "3") router.push("/dashboard");
-    if (e.key === "4") router.push("/dashboard");
-    if (e.key === "5") router.push("/dashboard");
+    if (e.key === "4") router.push("/baza-artikala");
+    if (e.key === "5") router.push("/statistika");
     if (e.key === "6") {
       localStorage.removeItem("isCurrentUser");
       router.push("/");
     }
   };
+
   return (
     <Menu
       theme="dark"
       mode="inline"
       onClick={onClick}
       defaultSelectedKeys={["3"]}
-      defaultOpenKeys={["3"]}
+      // defaultOpenKeys={["3"]}
       items={[
         { key: "3", icon: <HomeOutlined />, label: "Dashboard" },
-        { key: "4", icon: <DatabaseOutlined />, label: "Stolovi" },
+        { key: "4", icon: <DatabaseOutlined />, label: "Baza artikala" },
         { key: "5", icon: <LineChartOutlined />, label: "Statistika" },
         {
           key: "6",

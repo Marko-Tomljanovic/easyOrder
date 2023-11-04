@@ -14,12 +14,15 @@ function PageHeaderNavigation({ subtitle, color }: PageHeaderNavigationProps) {
       return titleLookup[pathname as keyof typeof titleLookup];
     }
   };
-  const isBackButton = ["/dashboard/"];
+  function hasMoreThanTwoSlashes() {
+    const matches = pathname.match(/\//g);
+    return matches && matches.length > 1;
+  }
 
   return (
     <Header style={{ padding: 0, background: color ? color : "#FFFFFF" }}>
       <Flex gap={40} align="center" style={{ marginLeft: "2rem" }}>
-        {isBackButton.includes(pathname) ? (
+        {hasMoreThanTwoSlashes() ? (
           <Button shape="circle" onClick={() => router.back()}>
             <RollbackOutlined />
           </Button>
