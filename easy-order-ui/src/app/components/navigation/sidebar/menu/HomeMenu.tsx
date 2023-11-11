@@ -5,6 +5,8 @@ import {
   HomeOutlined,
   LineChartOutlined,
   LogoutOutlined,
+  MenuOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
 import { keyLookup } from "@/constants/lookups";
@@ -12,18 +14,30 @@ import { keyLookup } from "@/constants/lookups";
 export default function HomeMenu() {
   const router = useRouter();
   const pathname = usePathname();
+
   const currentKey = () => {
     if (pathname) {
       return keyLookup[pathname as keyof typeof keyLookup];
     } else {
-      return "3";
+      return "dashboard";
     }
   };
+
+  const defaultOpenKey = () => {
+    if (pathname && pathname.includes("admin")) {
+      return "admin";
+    } else {
+      return "dashboard";
+    }
+  };
+
   const onClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "3") router.push("/dashboard");
-    if (e.key === "4") router.push("/baza-artikala");
-    if (e.key === "5") router.push("/statistika");
-    if (e.key === "6") {
+    if (e.key === "dashboard") router.push("/dashboard");
+    if (e.key === "meni") router.push("/meni");
+    if (e.key === "statistika") router.push("/admin/statistika");
+    if (e.key === "bazaArtikala") router.push("/admin/baza-artikala");
+    if (e.key === "osoblje") router.push("/admin/osoblje");
+    if (e.key === "logOut") {
       localStorage.removeItem("isCurrentUser");
       router.push("/");
     }
@@ -35,13 +49,34 @@ export default function HomeMenu() {
       mode="inline"
       onClick={onClick}
       defaultSelectedKeys={[currentKey()]}
-      // defaultOpenKeys={["3"]}
+      defaultOpenKeys={[defaultOpenKey()]}
       items={[
-        { key: "3", icon: <HomeOutlined />, label: "Dashboard" },
-        { key: "4", icon: <DatabaseOutlined />, label: "Baza artikala" },
-        { key: "5", icon: <LineChartOutlined />, label: "Statistika" },
+        { key: "dashboard", icon: <HomeOutlined />, label: "Dashboard" },
         {
-          key: "6",
+          key: "meni",
+          icon: <MenuOutlined />,
+          label: "Meni",
+        },
+        {
+          key: "admin",
+          children: [
+            {
+              key: "bazaArtikala",
+              icon: <DatabaseOutlined />,
+              label: "Baza artikala",
+            },
+            { key: "osoblje", icon: <TeamOutlined />, label: "Osoblje" },
+            {
+              key: "statistika",
+              icon: <LineChartOutlined />,
+              label: "Statistika",
+            },
+          ],
+          icon: <HomeOutlined />,
+          label: "Admin",
+        },
+        {
+          key: "logOut",
           icon: <LogoutOutlined />,
           style: { position: "absolute", bottom: "1rem" },
           label: "LogOut",

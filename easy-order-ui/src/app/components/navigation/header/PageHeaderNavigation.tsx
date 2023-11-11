@@ -22,7 +22,9 @@ function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
   };
   function hasMoreThanTwoSlashes() {
     const matches = pathname.match(/\//g);
-    return matches && matches.length > 1;
+    if (pathname.includes("admin")) {
+      return matches && matches.length > 2;
+    } else return matches && matches.length > 1;
   }
 
   return (
