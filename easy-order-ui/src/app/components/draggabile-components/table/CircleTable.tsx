@@ -8,6 +8,7 @@ interface Props {
   size?: string & ("1" | "2" | "3");
   isTwoChairs?: boolean;
   showId?: boolean;
+  noChair?: boolean;
 }
 
 const sizeLookup = {
@@ -24,6 +25,7 @@ export default function CircleTable({
   size,
   isTwoChairs,
   showId,
+  noChair,
 }: Props) {
   const draggableRef = useRef(null);
   const [positions, setPositions] = useState({});
@@ -80,32 +82,39 @@ export default function CircleTable({
             backgroundColor: "#E6F7FF",
             border: "solid 1.5px",
             borderColor: "#69C0FF",
-            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#001529",
           }}
         >
           {showId ? id : ""}
         </div>
 
-        {/* Squares */}
+        {/* Stolice */}
         {chairs().map((angle) => (
           <div
             ref={draggableRef}
             key={angle}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${
-                (size
-                  ? Number(sizeLookup[size as keyof typeof sizeLookup])
-                  : 40) /
-                  2 +
-                15
-              }px)`,
-              width: "18px",
-              height: "18px",
-              border: "solid 1px",
-            }}
+            style={
+              noChair
+                ? {}
+                : {
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${
+                      (size
+                        ? Number(sizeLookup[size as keyof typeof sizeLookup])
+                        : 40) /
+                        2 +
+                      15
+                    }px)`,
+                    width: "18px",
+                    height: "18px",
+                    border: "solid 1px",
+                  }
+            }
           ></div>
         ))}
       </div>

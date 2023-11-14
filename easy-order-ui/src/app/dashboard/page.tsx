@@ -5,11 +5,12 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "../redux/store";
 import { logIn } from "../redux/features/auth-slice";
 import CircleTable from "../components/draggabile-components/table/CircleTable";
-import { Button, Checkbox } from "antd";
+import { Button, Checkbox, Space } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 export default function Page() {
   const [isShowId, setIsShowId] = useState<boolean>(false);
+  const [noChair, setNoChair] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -17,39 +18,18 @@ export default function Page() {
   const [tableList, setTableList] = useState<any>([
     {
       id: "1",
-      customBounds: {
-        left: 0,
-        top: 0,
-        right: 705,
-        bottom: 405,
-      },
       isSquare: false,
       isTwoChairs: false,
-      showId: false,
     },
     {
       id: "2",
-      customBounds: {
-        left: 0,
-        top: 0,
-        right: 705,
-        bottom: 405,
-      },
       isSquare: false,
       isTwoChairs: false,
-      showId: false,
     },
     {
       id: "3",
-      customBounds: {
-        left: 0,
-        top: 0,
-        right: 705,
-        bottom: 405,
-      },
       isSquare: true,
       isTwoChairs: true,
-      showId: false,
     },
   ]);
 
@@ -82,14 +62,19 @@ export default function Page() {
     setIsShowId(e.target.checked);
   };
 
+  const handleNoChair = (e: CheckboxChangeEvent) => {
+    setNoChair(e.target.checked);
+  };
+
   const listItems = tableList.map((table: any) => (
     <CircleTable
       key={table.id}
       id={table.id}
-      customBounds={table.customBounds}
+      customBounds={customBounds}
       isSquare={table.isSquare}
       isTwoChairs={table.isTwoChairs}
       showId={isShowId}
+      noChair={noChair}
     />
   ));
 
@@ -108,10 +93,11 @@ export default function Page() {
         {listItems}
       </div>
       <br />
-
-      <Button onClick={() => marko()}>Dodaj stol</Button>
-      <br />
-      <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
+      <Space>
+        <Button onClick={() => marko()}>Dodaj stol</Button>
+        <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
+        <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
+      </Space>
     </>
   );
 }
