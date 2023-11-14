@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "../redux/store";
 import { logIn } from "../redux/features/auth-slice";
 import CircleTable from "../components/draggabile-components/table/CircleTable";
-import { Button, Checkbox, Space } from "antd";
+import { Button, Checkbox, Dropdown, MenuProps, Space } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { DownOutlined } from "@ant-design/icons";
 
 export default function Page() {
   const [isShowId, setIsShowId] = useState<boolean>(false);
@@ -43,7 +44,7 @@ export default function Page() {
     right: 705,
     bottom: 405,
   };
-  const marko = () => {
+  const marko = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
       id: String(tableList.length + 1),
       customBounds: {
@@ -52,8 +53,8 @@ export default function Page() {
         right: 705,
         bottom: 405,
       },
-      isSquare: false,
-      isTwoChairs: false,
+      isSquare: shape,
+      isTwoChairs: chairNumber,
     };
     setTableList([...tableList, newTable]);
   };
@@ -78,6 +79,37 @@ export default function Page() {
     />
   ));
 
+  const items = [
+    {
+      label: "Okrugli",
+      key: "100",
+      children: [
+        {
+          key: "1",
+          label: <a onClick={() => marko(false, true)}>Dvije stolice</a>,
+        },
+        {
+          key: "2",
+          label: <a onClick={() => marko(false, false)}>Četiri stolice</a>,
+        },
+      ],
+    },
+    {
+      label: "Četvrtasti",
+      key: "200",
+      children: [
+        {
+          key: "3",
+          label: <a onClick={() => marko(true, true)}>Dvije stolice</a>,
+        },
+        {
+          key: "4",
+          label: <a onClick={() => marko(true, false)}>Četiri stolice</a>,
+        },
+      ],
+    },
+  ];
+
   return (
     <>
       <div
@@ -94,7 +126,15 @@ export default function Page() {
       </div>
       <br />
       <Space>
-        <Button onClick={() => marko()}>Dodaj stol</Button>
+        <Dropdown menu={{ items }}>
+          <Button>
+            <Space>
+              Dodaj stol
+              <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
+        {/* <Button onClick={() => marko()}>Dodaj stol</Button> */}
         <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
         <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
       </Space>
