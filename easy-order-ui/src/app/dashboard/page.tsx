@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "../redux/store";
 import { logIn } from "../redux/features/auth-slice";
 import CircleTable from "../components/draggabile-components/table/CircleTable";
-import { Button } from "antd";
+import { Button, Checkbox } from "antd";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 export default function Page() {
+  const [isShowId, setIsShowId] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -23,6 +25,7 @@ export default function Page() {
       },
       isSquare: false,
       isTwoChairs: false,
+      showId: false,
     },
     {
       id: "2",
@@ -34,6 +37,7 @@ export default function Page() {
       },
       isSquare: false,
       isTwoChairs: false,
+      showId: false,
     },
     {
       id: "3",
@@ -45,6 +49,7 @@ export default function Page() {
       },
       isSquare: true,
       isTwoChairs: true,
+      showId: false,
     },
   ]);
 
@@ -73,12 +78,18 @@ export default function Page() {
     setTableList([...tableList, newTable]);
   };
 
+  const onChangeCheckbox = (e: CheckboxChangeEvent) => {
+    setIsShowId(e.target.checked);
+  };
+
   const listItems = tableList.map((table: any) => (
     <CircleTable
       key={table.id}
+      id={table.id}
       customBounds={table.customBounds}
       isSquare={table.isSquare}
       isTwoChairs={table.isTwoChairs}
+      showId={isShowId}
     />
   ));
 
@@ -97,7 +108,10 @@ export default function Page() {
         {listItems}
       </div>
       <br />
+
       <Button onClick={() => marko()}>Dodaj stol</Button>
+      <br />
+      <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
     </>
   );
 }

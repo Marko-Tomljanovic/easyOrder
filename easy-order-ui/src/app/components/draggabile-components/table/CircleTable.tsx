@@ -2,11 +2,12 @@ import { useRef, useState } from "react";
 import Draggable from "react-draggable";
 
 interface Props {
+  id?: string;
   customBounds: object;
-  //   handleDrag: (e: any, ui: any, s: string) => any;
   isSquare?: boolean;
   size?: string & ("1" | "2" | "3");
   isTwoChairs?: boolean;
+  showId?: boolean;
 }
 
 const sizeLookup = {
@@ -16,11 +17,13 @@ const sizeLookup = {
 };
 
 export default function CircleTable({
+  id,
   customBounds,
   //   handleDrag,
   isSquare,
   size,
   isTwoChairs,
+  showId,
 }: Props) {
   const draggableRef = useRef(null);
   const [positions, setPositions] = useState({});
@@ -77,8 +80,11 @@ export default function CircleTable({
             backgroundColor: "#E6F7FF",
             border: "solid 1.5px",
             borderColor: "#69C0FF",
+            textAlign: "center",
           }}
-        ></div>
+        >
+          {showId ? id : ""}
+        </div>
 
         {/* Squares */}
         {chairs().map((angle) => (
