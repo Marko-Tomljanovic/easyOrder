@@ -5,13 +5,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "../redux/store";
 import { logIn } from "../redux/features/auth-slice";
 import CircleTable from "../components/draggabile-components/table/CircleTable";
-import { Button, Checkbox, Dropdown, MenuProps, Space } from "antd";
+import { Button, Checkbox, Dropdown, Space } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { DownOutlined } from "@ant-design/icons";
 
 export default function Page() {
   const [isShowId, setIsShowId] = useState<boolean>(false);
   const [noChair, setNoChair] = useState<boolean>(false);
+  const [positions, setPositions] = useState<{
+    [key: string]: { x: number; y: number };
+  }>({});
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -33,6 +36,34 @@ export default function Page() {
       isTwoChairs: true,
     },
   ]);
+
+  const handleDrag = (e: any, ui: any, id: string) => {
+    const newPosition = {
+      x: ui.x,
+      y: ui.y,
+    };
+
+    // provjera koalizije
+    const isCollision = Object.keys(positions).some((tableId) => {
+      if (tableId !== id) {
+        const otherTable = positions[tableId as keyof typeof positions];
+        const distance = Math.sqrt(
+          Math.pow(newPosition.x - otherTable.x, 2) +
+            Math.pow(newPosition.y - otherTable.y, 2)
+        );
+        return distance < 60;
+      }
+      return false;
+    });
+
+    // ako postoji koalizija, spriječi update
+    if (!isCollision) {
+      setPositions((prevPositions) => ({
+        ...prevPositions,
+        [id]: newPosition,
+      }));
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(logIn(e.target.value));
@@ -71,11 +102,13 @@ export default function Page() {
     <CircleTable
       key={table.id}
       id={table.id}
+      handleDrag={handleDrag}
       customBounds={customBounds}
       isSquare={table.isSquare}
       isTwoChairs={table.isTwoChairs}
       showId={isShowId}
       noChair={noChair}
+      positions={positions}
     />
   ));
 

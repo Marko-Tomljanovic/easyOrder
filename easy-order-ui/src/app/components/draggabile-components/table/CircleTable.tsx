@@ -1,14 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Draggable from "react-draggable";
 
 interface Props {
   id?: string;
   customBounds: object;
+  handleDrag: any;
   isSquare?: boolean;
   size?: string & ("1" | "2" | "3");
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;
+  positions?: any;
 }
 
 const sizeLookup = {
@@ -20,27 +22,15 @@ const sizeLookup = {
 export default function CircleTable({
   id,
   customBounds,
-  //   handleDrag,
+  handleDrag,
   isSquare,
   size,
   isTwoChairs,
   showId,
   noChair,
+  positions,
 }: Props) {
   const draggableRef = useRef(null);
-  const [positions, setPositions] = useState({});
-
-  const handleDrag = (e: any, ui: any, id: string) => {
-    const newPosition = {
-      x: ui.x,
-      y: ui.y,
-    };
-
-    setPositions((prevPositions) => ({
-      ...prevPositions,
-      [id]: newPosition,
-    }));
-  };
 
   const chairs = () => {
     if (isTwoChairs) return [90, 270];
@@ -51,9 +41,10 @@ export default function CircleTable({
     <Draggable
       bounds={customBounds}
       onStart={(e, ui) => console.log("Drag started", e, ui)}
-      onDrag={(e, ui) => handleDrag(e, ui, "prvi")}
+      onDrag={(e, ui) => handleDrag(e, ui, id)}
       onStop={(e, ui) => console.log("Drag stopped", e, ui)}
       grid={[8, 8]}
+      position={positions[id as keyof typeof positions]}
       nodeRef={draggableRef}
     >
       <div
@@ -64,7 +55,7 @@ export default function CircleTable({
           height: "90px",
         }}
       >
-        {/* Circle */}
+        {/* Stol */}
         <div
           ref={draggableRef}
           style={{
