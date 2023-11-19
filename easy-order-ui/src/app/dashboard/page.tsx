@@ -12,9 +12,6 @@ import { DownOutlined } from "@ant-design/icons";
 export default function Page() {
   const [isShowId, setIsShowId] = useState<boolean>(false);
   const [noChair, setNoChair] = useState<boolean>(false);
-  const [positions, setPositions] = useState<{
-    [key: string]: { x: number; y: number };
-  }>({});
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -28,9 +25,9 @@ export default function Page() {
     };
 
     // provjera koalizije
-    const isCollision = Object.keys(positions).some((tableId) => {
-      if (tableId !== id) {
-        const otherTable = positions[tableId as keyof typeof positions];
+    const isCollision = tableList.some((table: any) => {
+      if (table.id !== id) {
+        const otherTable = table.position;
         const distance = Math.sqrt(
           Math.pow(newPosition.x - otherTable.x, 2) +
             Math.pow(newPosition.y - otherTable.y, 2)
@@ -40,12 +37,15 @@ export default function Page() {
       return false;
     });
 
-    // ako postoji koalizija, spriječi update
     if (!isCollision) {
-      setPositions((prevPositions) => ({
-        ...prevPositions,
-        [id]: newPosition,
-      }));
+      setTableList((prevList: any) => {
+        return prevList.map((table: any) => {
+          if (table.id === id) {
+            return { ...table, position: newPosition };
+          }
+          return table;
+        });
+      });
     }
   };
 
@@ -62,7 +62,7 @@ export default function Page() {
   const marko = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
       id: String(tableList.length + 1),
-      customBounds: customBounds,
+      position: { x: 0, y: 0 },
       isSquare: shape,
       isTwoChairs: chairNumber,
     };
@@ -87,7 +87,7 @@ export default function Page() {
       isTwoChairs={table.isTwoChairs}
       showId={isShowId}
       noChair={noChair}
-      positions={positions}
+      position={table.position}
     />
   ));
 

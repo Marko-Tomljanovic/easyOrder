@@ -10,7 +10,7 @@ interface Props {
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;
-  positions?: any;
+  position?: any;
 }
 
 const sizeLookup = {
@@ -28,7 +28,7 @@ export default function CircleTable({
   isTwoChairs,
   showId,
   noChair,
-  positions,
+  position,
 }: Props) {
   const draggableRef = useRef(null);
 
@@ -44,7 +44,7 @@ export default function CircleTable({
       onDrag={(e, ui) => handleDrag(e, ui, id)}
       onStop={(e, ui) => console.log("Drag stopped", e, ui)}
       grid={[8, 8]}
-      position={positions[id as keyof typeof positions]}
+      position={position}
       nodeRef={draggableRef}
     >
       <div
