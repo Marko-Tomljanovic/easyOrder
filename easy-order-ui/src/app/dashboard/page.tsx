@@ -87,9 +87,11 @@ export default function Page() {
     right: 705,
     bottom: 405,
   };
+
   const addNewTable = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
       id: String(tableList.length + 1),
+      size: 1,
       position: startPosition(),
       isSquare: shape,
       isTwoChairs: chairNumber,
@@ -114,6 +116,7 @@ export default function Page() {
       key={table.id}
       id={table.id}
       position={table.position}
+      size={1}
       handleDrag={handleDrag}
       customBounds={customBounds}
       isSquare={table.isSquare}

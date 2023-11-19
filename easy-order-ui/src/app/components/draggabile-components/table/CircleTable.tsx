@@ -7,7 +7,7 @@ interface Props {
   position?: any;
   handleDrag: any;
   isSquare?: boolean;
-  size?: string & ("1" | "2" | "3");
+  size?: number & (1 | 2 | 3 | 4);
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;
@@ -15,9 +15,10 @@ interface Props {
 }
 
 const sizeLookup = {
-  "1": "50",
-  "2": "60",
-  "3": "70",
+  1: "40",
+  2: "50",
+  3: "60",
+  4: "70",
 };
 
 export default function CircleTable({
@@ -101,11 +102,12 @@ export default function CircleTable({
                         ? Number(sizeLookup[size as keyof typeof sizeLookup])
                         : 40) /
                         2 +
-                      15
+                      13
                     }px)`,
-                    width: "18px",
-                    height: "18px",
+                    width: "15px",
+                    height: "15px",
                     border: "solid 1px",
+                    // borderStyle: "double",
                   }
             }
           ></div>
