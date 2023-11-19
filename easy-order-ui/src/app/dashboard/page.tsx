@@ -12,6 +12,7 @@ import { DownOutlined } from "@ant-design/icons";
 export default function Page() {
   const [isShowId, setIsShowId] = useState<boolean>(false);
   const [noChair, setNoChair] = useState<boolean>(false);
+  const [grid, setGrid] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
@@ -104,17 +105,22 @@ export default function Page() {
     setNoChair(e.target.checked);
   };
 
+  const handleGrid = (e: CheckboxChangeEvent) => {
+    setGrid(e.target.checked);
+  };
+
   const listItems = tableList.map((table: any) => (
     <CircleTable
       key={table.id}
       id={table.id}
+      position={table.position}
       handleDrag={handleDrag}
       customBounds={customBounds}
       isSquare={table.isSquare}
       isTwoChairs={table.isTwoChairs}
       showId={isShowId}
       noChair={noChair}
-      position={table.position}
+      grid={grid}
     />
   ));
 
@@ -178,6 +184,7 @@ export default function Page() {
         {/* <Button onClick={() => marko()}>Dodaj stol</Button> */}
         <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
         <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
+        <Checkbox onChange={handleGrid}>Veći grid</Checkbox>
       </Space>
     </>
   );

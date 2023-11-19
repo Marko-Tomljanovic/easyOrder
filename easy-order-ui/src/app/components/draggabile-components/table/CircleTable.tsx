@@ -4,13 +4,14 @@ import Draggable from "react-draggable";
 interface Props {
   id?: string;
   customBounds: object;
+  position?: any;
   handleDrag: any;
   isSquare?: boolean;
   size?: string & ("1" | "2" | "3");
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;
-  position?: any;
+  grid?: boolean;
 }
 
 const sizeLookup = {
@@ -22,13 +23,14 @@ const sizeLookup = {
 export default function CircleTable({
   id,
   customBounds,
+  position,
   handleDrag,
   isSquare,
   size,
   isTwoChairs,
   showId,
   noChair,
-  position,
+  grid,
 }: Props) {
   const draggableRef = useRef(null);
 
@@ -43,7 +45,7 @@ export default function CircleTable({
       onStart={(e, ui) => console.log("Drag started", e, ui)}
       onDrag={(e, ui) => handleDrag(e, ui, id)}
       onStop={(e, ui) => console.log("Drag stopped", e, ui)}
-      grid={[8, 8]}
+      grid={grid ? [25, 25] : [8, 8]}
       position={position}
       nodeRef={draggableRef}
     >
