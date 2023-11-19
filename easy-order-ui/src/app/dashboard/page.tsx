@@ -49,6 +49,33 @@ export default function Page() {
     }
   };
 
+  const startPosition = () => {
+    let newPosition = {
+      x: 0,
+      y: 0,
+    };
+    const isCollision = () => {
+      const tableCollision = tableList.some((table: any) => {
+        const otherTable = table.position;
+        const distance = Math.sqrt(
+          Math.pow(newPosition.x - otherTable.x, 2) +
+            Math.pow(newPosition.y - otherTable.y, 2)
+        );
+        return distance < 60;
+      });
+      if (!tableCollision) {
+        return false;
+      } else {
+        newPosition.x += 100;
+        isCollision();
+      }
+    };
+
+    if (!isCollision()) {
+      return newPosition;
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(logIn(e.target.value));
   };
@@ -59,10 +86,10 @@ export default function Page() {
     right: 705,
     bottom: 405,
   };
-  const marko = (shape: boolean, chairNumber: boolean) => {
+  const addNewTable = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
       id: String(tableList.length + 1),
-      position: { x: 0, y: 0 },
+      position: startPosition(),
       isSquare: shape,
       isTwoChairs: chairNumber,
     };
@@ -98,11 +125,13 @@ export default function Page() {
       children: [
         {
           key: "1",
-          label: <a onClick={() => marko(false, true)}>Dvije stolice</a>,
+          label: <a onClick={() => addNewTable(false, true)}>Dvije stolice</a>,
         },
         {
           key: "2",
-          label: <a onClick={() => marko(false, false)}>Četiri stolice</a>,
+          label: (
+            <a onClick={() => addNewTable(false, false)}>Četiri stolice</a>
+          ),
         },
       ],
     },
@@ -112,11 +141,11 @@ export default function Page() {
       children: [
         {
           key: "3",
-          label: <a onClick={() => marko(true, true)}>Dvije stolice</a>,
+          label: <a onClick={() => addNewTable(true, true)}>Dvije stolice</a>,
         },
         {
           key: "4",
-          label: <a onClick={() => marko(true, false)}>Četiri stolice</a>,
+          label: <a onClick={() => addNewTable(true, false)}>Četiri stolice</a>,
         },
       ],
     },
