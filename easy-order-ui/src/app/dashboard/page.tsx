@@ -19,23 +19,7 @@ export default function Page() {
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
   });
-  const [tableList, setTableList] = useState<any>([
-    {
-      id: "1",
-      isSquare: false,
-      isTwoChairs: false,
-    },
-    {
-      id: "2",
-      isSquare: false,
-      isTwoChairs: false,
-    },
-    {
-      id: "3",
-      isSquare: true,
-      isTwoChairs: true,
-    },
-  ]);
+  const [tableList, setTableList] = useState<any>([]);
 
   const handleDrag = (e: any, ui: any, id: string) => {
     const newPosition = {
@@ -78,12 +62,7 @@ export default function Page() {
   const marko = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
       id: String(tableList.length + 1),
-      customBounds: {
-        left: 0,
-        top: 0,
-        right: 705,
-        bottom: 405,
-      },
+      customBounds: customBounds,
       isSquare: shape,
       isTwoChairs: chairNumber,
     };
