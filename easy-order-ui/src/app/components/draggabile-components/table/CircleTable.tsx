@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Draggable from "react-draggable";
+import SettingsModal from "../settings-modal/SettingsModal";
 
 interface Props {
   id?: string;
@@ -34,6 +35,8 @@ export default function CircleTable({
   grid,
 }: Props) {
   const draggableRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const chairs = () => {
     if (isTwoChairs) return [90, 270];
@@ -41,78 +44,96 @@ export default function CircleTable({
   };
 
   return (
-    <Draggable
-      bounds={customBounds}
-      onStart={(e, ui) => console.log("Drag started", e, ui)}
-      onDrag={(e, ui) => handleDrag(e, ui, id)}
-      onStop={(e, ui) => console.log("Drag stopped", e, ui)}
-      grid={grid ? [25, 25] : [8, 8]}
-      position={position}
-      nodeRef={draggableRef}
-    >
-      <div
-        ref={draggableRef}
-        style={{
-          position: "absolute",
-          width: "90px",
-          height: "90px",
+    <>
+      <Draggable
+        bounds={customBounds}
+        onStart={(e, ui) => {
+          console.log("Drag started", e, ui);
         }}
+        onDrag={(e, ui) => {
+          handleDrag(e, ui, id);
+          setIsDragging(true);
+        }}
+        onStop={(e, ui) => {
+          console.log("Drag stoped", e, ui);
+          if (!isDragging) {
+            setIsModalOpen(true);
+          }
+          setIsDragging(false);
+        }}
+        grid={grid ? [25, 25] : [8, 8]}
+        position={position}
+        nodeRef={draggableRef}
       >
-        {/* Stol */}
         <div
           ref={draggableRef}
           style={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: size
-              ? sizeLookup[size as keyof typeof sizeLookup] + "px"
-              : "40px",
-            height: size
-              ? sizeLookup[size as keyof typeof sizeLookup] + "px"
-              : "40px",
-            borderRadius: isSquare ? "0%" : "50%",
-            backgroundColor: "#E6F7FF",
-            border: "solid 1.5px",
-            borderColor: "#69C0FF",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#001529",
+            width: "90px",
+            height: "90px",
           }}
         >
-          {showId ? id : ""}
-        </div>
-
-        {/* Stolice */}
-        {chairs().map((angle) => (
+          {/* Stol */}
           <div
             ref={draggableRef}
-            key={angle}
-            style={
-              noChair
-                ? {}
-                : {
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${
-                      (size
-                        ? Number(sizeLookup[size as keyof typeof sizeLookup])
-                        : 40) /
-                        2 +
-                      13
-                    }px)`,
-                    width: "15px",
-                    height: "15px",
-                    border: "solid 1px",
-                    // borderStyle: "double",
-                  }
-            }
-          ></div>
-        ))}
-      </div>
-    </Draggable>
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: size
+                ? sizeLookup[size as keyof typeof sizeLookup] + "px"
+                : "40px",
+              height: size
+                ? sizeLookup[size as keyof typeof sizeLookup] + "px"
+                : "40px",
+              borderRadius: isSquare ? "0%" : "50%",
+              backgroundColor: "#E6F7FF",
+              border: "solid 1.5px",
+              borderColor: "#69C0FF",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#001529",
+            }}
+          >
+            {showId ? id : ""}
+          </div>
+
+          {/* Stolice */}
+          {chairs().map((angle) => (
+            <div
+              ref={draggableRef}
+              key={angle}
+              style={
+                noChair
+                  ? {}
+                  : {
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${
+                        (size
+                          ? Number(sizeLookup[size as keyof typeof sizeLookup])
+                          : 40) /
+                          2 +
+                        13
+                      }px)`,
+                      width: "15px",
+                      height: "15px",
+                      border: "solid 1px",
+                      // borderStyle: "double",
+                    }
+              }
+            ></div>
+          ))}
+        </div>
+      </Draggable>
+      <SettingsModal
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        idStola={id}
+      />
+    </>
   );
 }
