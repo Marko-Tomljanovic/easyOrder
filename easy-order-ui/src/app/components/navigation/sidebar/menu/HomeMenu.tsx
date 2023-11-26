@@ -1,6 +1,7 @@
 import { Menu, MenuProps } from "antd";
 import React from "react";
 import {
+  AppstoreOutlined,
   DatabaseOutlined,
   HomeOutlined,
   LineChartOutlined,
@@ -68,7 +69,7 @@ export default function HomeMenu() {
             },
             {
               key: "raspored",
-              icon: <DatabaseOutlined />,
+              icon: <AppstoreOutlined />,
               label: "Raspored",
             },
             { key: "osoblje", icon: <TeamOutlined />, label: "Osoblje" },

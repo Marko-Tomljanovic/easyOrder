@@ -1,6 +1,7 @@
 import {
   Col,
   Modal,
+  QRCode,
   Radio,
   RadioChangeEvent,
   Row,
@@ -10,6 +11,7 @@ import {
 import Table from "../table/Table";
 import {
   updateTableChair,
+  updateTableForm,
   updateTableSize,
 } from "@/app/redux/features/table-slice";
 import { useDispatch } from "react-redux";
@@ -47,9 +49,14 @@ export default function SettingsModal({
     dispatch(updateTableSize({ id, newSize }));
   };
 
-  const onChangeStolice = (e: RadioChangeEvent) => {
+  const onChangeChairs = (e: RadioChangeEvent) => {
     const changeChairs = e.target.value;
     dispatch(updateTableChair({ id, changeChairs }));
+  };
+
+  const onChangeForm = (e: RadioChangeEvent) => {
+    const newForm = e.target.value;
+    dispatch(updateTableForm({ id, newForm }));
   };
 
   return (
@@ -70,7 +77,7 @@ export default function SettingsModal({
           modalMode
         />
         <br />
-        <Row gutter={16}>
+        <Row gutter={16} style={{ marginBottom: "10px" }}>
           <Col>
             <Typography.Text>Veličina: </Typography.Text>
           </Col>
@@ -83,19 +90,39 @@ export default function SettingsModal({
             />
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={16} style={{ marginBottom: "10px" }}>
           <Col>
             <Typography.Text>Broj stolica: </Typography.Text>
           </Col>
           <Col span={12}>
             <Radio.Group
               size="small"
-              onChange={onChangeStolice}
+              onChange={onChangeChairs}
               defaultValue={isTwoChairs}
             >
               <Radio.Button value={true}>Dvije Stolice</Radio.Button>
               <Radio.Button value={false}>Četiri stolice</Radio.Button>
             </Radio.Group>
+          </Col>
+        </Row>
+        <Row gutter={16} style={{ marginBottom: "15px" }}>
+          <Col>
+            <Typography.Text>Oblik stola: </Typography.Text>
+          </Col>
+          <Col span={12}>
+            <Radio.Group
+              size="small"
+              onChange={onChangeForm}
+              defaultValue={isSquare}
+            >
+              <Radio.Button value={true}>Okrugli</Radio.Button>
+              <Radio.Button value={false}>Četvrtasti</Radio.Button>
+            </Radio.Group>
+          </Col>
+        </Row>
+        <Row justify="center" align="middle">
+          <Col>
+            <QRCode value={`www.qrWithTableId/${id}` || "-"} />
           </Col>
         </Row>
       </Modal>

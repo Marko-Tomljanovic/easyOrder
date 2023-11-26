@@ -53,6 +53,16 @@ export const table = createSlice({
         tableToUpdate.isTwoChairs = changeChairs;
       }
     },
+    updateTableForm: (
+      state,
+      action: PayloadAction<{ id: string; newForm: boolean }>
+    ) => {
+      const { id, newForm } = action.payload;
+      const tableToUpdate = state.find((table) => table.id === id);
+      if (tableToUpdate) {
+        tableToUpdate.isSquare = newForm;
+      }
+    },
   },
 });
 
@@ -61,5 +71,6 @@ export const {
   updateTablePosition,
   updateTableSize,
   updateTableChair,
+  updateTableForm,
 } = table.actions;
 export default table.reducer;
