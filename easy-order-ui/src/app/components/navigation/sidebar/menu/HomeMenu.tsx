@@ -36,6 +36,7 @@ export default function HomeMenu() {
     if (e.key === "meni") router.push("/meni");
     if (e.key === "statistika") router.push("/admin/statistika");
     if (e.key === "bazaArtikala") router.push("/admin/baza-artikala");
+    if (e.key === "raspored") router.push("/admin/raspored");
     if (e.key === "osoblje") router.push("/admin/osoblje");
     if (e.key === "logOut") {
       localStorage.removeItem("isCurrentUser");
@@ -64,6 +65,11 @@ export default function HomeMenu() {
               key: "bazaArtikala",
               icon: <DatabaseOutlined />,
               label: "Baza artikala",
+            },
+            {
+              key: "raspored",
+              icon: <DatabaseOutlined />,
+              label: "Raspored",
             },
             { key: "osoblje", icon: <TeamOutlined />, label: "Osoblje" },
             {
