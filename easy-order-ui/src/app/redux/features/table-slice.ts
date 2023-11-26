@@ -8,7 +8,7 @@ type TablePosition = {
 type Table = {
   id: string;
   size: null | number;
-  position: TablePosition;
+  position: TablePosition | undefined;
   isSquare: boolean;
   isTwoChairs: boolean;
 };
@@ -20,11 +20,32 @@ export const table = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    fetchItems: (state, action) => {
-      state = action.payload;
+    setNewTable: (state, action: PayloadAction<Table>) => {
+      state.push(action.payload);
+    },
+    updateTablePosition: (
+      state,
+      action: PayloadAction<{ id: string; newPosition: TablePosition }>
+    ) => {
+      const { id, newPosition } = action.payload;
+      const tableToUpdate = state.find((table) => table.id === id);
+      if (tableToUpdate) {
+        tableToUpdate.position = newPosition;
+      }
+    },
+    updateTableSize: (
+      state,
+      action: PayloadAction<{ id: string; newSize: number }>
+    ) => {
+      const { id, newSize } = action.payload;
+      const tableToUpdate = state.find((table) => table.id === id);
+      if (tableToUpdate) {
+        tableToUpdate.size = newSize;
+      }
     },
   },
 });
 
-export const { fetchItems } = table.actions;
+export const { setNewTable, updateTablePosition, updateTableSize } =
+  table.actions;
 export default table.reducer;

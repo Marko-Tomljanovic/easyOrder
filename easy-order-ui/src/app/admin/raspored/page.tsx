@@ -6,16 +6,18 @@ import { Button, Checkbox, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useAdmin } from "@/context/AdminProvider";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import CircleTable from "@/app/components/draggabile-components/table/CircleTable";
+import CircleTable from "@/app/components/draggabile-components/table/DraggabileElement";
 
 export default function Page() {
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => {
     return state.authReducer.value.username;
   });
+  const tableList = useAppSelector((state) => {
+    return state.tableReducer;
+  });
 
   const {
-    tableList,
     globalTableOptions,
     customBounds,
     handleDrag,
@@ -30,7 +32,7 @@ export default function Page() {
       key={table.id}
       id={table.id}
       position={table.position}
-      size={1}
+      size={table.size}
       handleDrag={handleDrag}
       customBounds={customBounds}
       isSquare={table.isSquare}

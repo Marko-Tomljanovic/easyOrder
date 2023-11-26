@@ -1,12 +1,21 @@
+import {
+  setNewTable,
+  updateTablePosition,
+} from "@/app/redux/features/table-slice";
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const useRaspored = () => {
-  const [tableList, setTableList] = useState<any>([]);
+  const dispatch = useDispatch<AppDispatch>();
   const [globalTableOptions, setGlobalTableOptions] = useState<any>({
     isShowId: false,
     noChair: false,
     grid: false,
+  });
+  const tableList = useAppSelector((state) => {
+    return state.tableReducer;
   });
 
   const customBounds = {
@@ -36,14 +45,7 @@ export const useRaspored = () => {
     });
 
     if (!isCollision) {
-      setTableList((prevList: any) => {
-        return prevList.map((table: any) => {
-          if (table.id === id) {
-            return { ...table, position: newPosition };
-          }
-          return table;
-        });
-      });
+      dispatch(updateTablePosition({ id, newPosition }));
     }
   };
 
@@ -82,7 +84,7 @@ export const useRaspored = () => {
       isSquare: shape,
       isTwoChairs: chairNumber,
     };
-    setTableList([...tableList, newTable]);
+    dispatch(setNewTable(newTable));
   };
 
   const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -101,7 +103,6 @@ export const useRaspored = () => {
   };
 
   return {
-    tableList,
     globalTableOptions,
     customBounds,
     handleDrag,
