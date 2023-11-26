@@ -1,6 +1,17 @@
-import { Col, Modal, Row, Slider, Typography } from "antd";
+import {
+  Col,
+  Modal,
+  Radio,
+  RadioChangeEvent,
+  Row,
+  Slider,
+  Typography,
+} from "antd";
 import Table from "../table/Table";
-import { updateTableSize } from "@/app/redux/features/table-slice";
+import {
+  updateTableChair,
+  updateTableSize,
+} from "@/app/redux/features/table-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 
@@ -36,6 +47,11 @@ export default function SettingsModal({
     dispatch(updateTableSize({ id, newSize }));
   };
 
+  const onChangeStolice = (e: RadioChangeEvent) => {
+    const changeChairs = e.target.value;
+    dispatch(updateTableChair({ id, changeChairs }));
+  };
+
   return (
     <>
       <Modal
@@ -66,14 +82,21 @@ export default function SettingsModal({
               value={typeof size === "number" ? size : 0}
             />
           </Col>
-          {/* <Col span={4}>
-            <InputNumber
-              min={1}
-              max={3}
-              style={{ margin: "0 16px" }}
-              value={inputValue}
-            />
-          </Col> */}
+        </Row>
+        <Row gutter={16}>
+          <Col>
+            <Typography.Text>Broj stolica: </Typography.Text>
+          </Col>
+          <Col span={12}>
+            <Radio.Group
+              size="small"
+              onChange={onChangeStolice}
+              defaultValue={isTwoChairs}
+            >
+              <Radio.Button value={true}>Dvije Stolice</Radio.Button>
+              <Radio.Button value={false}>Četiri stolice</Radio.Button>
+            </Radio.Group>
+          </Col>
         </Row>
       </Modal>
     </>

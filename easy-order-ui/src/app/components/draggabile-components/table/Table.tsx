@@ -1,3 +1,4 @@
+import { Typography } from "antd";
 import { useRef } from "react";
 
 interface Props {
@@ -11,10 +12,10 @@ interface Props {
 }
 
 const sizeLookup = {
-  1: "40",
-  2: "50",
-  3: "60",
-  4: "70",
+  1: { tableSize: "40", fontSize: "14", fontWeight: "400" },
+  2: { tableSize: "50", fontSize: "18", fontWeight: "350" },
+  3: { tableSize: "60", fontSize: "20", fontWeight: "350" },
+  4: { tableSize: "70", fontSize: "22", fontWeight: "350" },
 };
 
 export default function Item({
@@ -52,10 +53,10 @@ export default function Item({
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: size
-              ? sizeLookup[size as keyof typeof sizeLookup] + "px"
+              ? sizeLookup[size as keyof typeof sizeLookup].tableSize + "px"
               : "40px",
             height: size
-              ? sizeLookup[size as keyof typeof sizeLookup] + "px"
+              ? sizeLookup[size as keyof typeof sizeLookup].tableSize + "px"
               : "40px",
             borderRadius: isSquare ? "0%" : "50%",
             backgroundColor: "#E6F7FF",
@@ -67,7 +68,16 @@ export default function Item({
             color: "#001529",
           }}
         >
-          {showId ? id : ""}
+          <Typography.Text
+            style={{
+              fontWeight:
+                sizeLookup[size as keyof typeof sizeLookup].fontWeight,
+              fontSize:
+                sizeLookup[size as keyof typeof sizeLookup].fontSize + "px",
+            }}
+          >
+            {showId ? id : ""}
+          </Typography.Text>
         </div>
 
         {/* Stolice */}
@@ -84,7 +94,10 @@ export default function Item({
                     left: "50%",
                     transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${
                       (size
-                        ? Number(sizeLookup[size as keyof typeof sizeLookup])
+                        ? Number(
+                            sizeLookup[size as keyof typeof sizeLookup]
+                              .tableSize
+                          )
                         : 40) /
                         2 +
                       13

@@ -43,9 +43,23 @@ export const table = createSlice({
         tableToUpdate.size = newSize;
       }
     },
+    updateTableChair: (
+      state,
+      action: PayloadAction<{ id: string; changeChairs: boolean }>
+    ) => {
+      const { id, changeChairs } = action.payload;
+      const tableToUpdate = state.find((table) => table.id === id);
+      if (tableToUpdate) {
+        tableToUpdate.isTwoChairs = changeChairs;
+      }
+    },
   },
 });
 
-export const { setNewTable, updateTablePosition, updateTableSize } =
-  table.actions;
+export const {
+  setNewTable,
+  updateTablePosition,
+  updateTableSize,
+  updateTableChair,
+} = table.actions;
 export default table.reducer;
