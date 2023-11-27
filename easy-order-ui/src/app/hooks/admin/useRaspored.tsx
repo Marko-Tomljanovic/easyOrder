@@ -103,6 +103,7 @@ export const useRaspored = () => {
   };
 
   return {
+    tableList,
     globalTableOptions,
     customBounds,
     handleDrag,

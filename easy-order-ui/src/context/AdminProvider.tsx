@@ -5,6 +5,7 @@ const AdminContext = createContext<any>(undefined);
 
 export default function AdminProvider({ children }: { children: ReactNode }) {
   const {
+    tableList,
     globalTableOptions,
     customBounds,
     handleDrag,
@@ -18,6 +19,7 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
   return (
     <AdminContext.Provider
       value={{
+        tableList,
         globalTableOptions,
         customBounds,
         handleDrag,
