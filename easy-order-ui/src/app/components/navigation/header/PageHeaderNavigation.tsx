@@ -3,7 +3,7 @@ import { Button, Flex } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { subtitleLookup, titleLookup } from "@/constants/lookups";
+import { subtitleLookup, titleLookup } from "@/constants/lookups/global";
 import { PageHeaderNavigationProps } from "@/types/comon";
 
 function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {

@@ -6,7 +6,7 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
-import { keyLookup } from "@/constants/lookups";
+import { keyLookup } from "@/constants/lookups/global";
 
 export default function AuthMenu() {
   const router = useRouter();

@@ -10,7 +10,7 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
-import { keyLookup } from "@/constants/lookups";
+import { keyLookup } from "@/constants/lookups/global";
 
 export default function HomeMenu() {
   const router = useRouter();

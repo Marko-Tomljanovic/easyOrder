@@ -1,3 +1,4 @@
+import { sizeLookup } from "@/constants/lookups/admin";
 import { Typography } from "antd";
 import { useRef } from "react";
 
@@ -10,13 +11,6 @@ interface Props {
   noChair?: boolean;
   modalMode?: boolean;
 }
-
-const sizeLookup = {
-  1: { tableSize: "40", fontSize: "14", fontWeight: "400" },
-  2: { tableSize: "50", fontSize: "18", fontWeight: "350" },
-  3: { tableSize: "60", fontSize: "20", fontWeight: "350" },
-  4: { tableSize: "70", fontSize: "22", fontWeight: "350" },
-};
 
 export default function Item({
   id,

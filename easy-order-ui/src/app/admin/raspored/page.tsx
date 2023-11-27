@@ -1,18 +1,19 @@
 "use client";
 
 import React from "react";
-import { Button, Checkbox, Dropdown, Space } from "antd";
+import { Button, Checkbox, Col, Dropdown, Radio, Row, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useAdmin } from "@/context/AdminProvider";
 import CircleTable from "@/app/components/draggabile-components/table/DraggabileElement";
+import { draggAreaLookup } from "@/constants/lookups/admin";
 
 export default function Page() {
   const {
     tableList,
     globalTableOptions,
-    customBounds,
     handleDrag,
     addNewTable,
+    onChangeDraggArea,
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
@@ -25,7 +26,11 @@ export default function Page() {
       position={table.position}
       size={table.size}
       handleDrag={handleDrag}
-      customBounds={customBounds}
+      customBounds={
+        draggAreaLookup[
+          globalTableOptions.draggArea as keyof typeof draggAreaLookup
+        ].customBounds
+      }
       isSquare={table.isSquare}
       isTwoChairs={table.isTwoChairs}
       showId={globalTableOptions.isShowId}
@@ -69,10 +74,27 @@ export default function Page() {
 
   return (
     <>
+      <Row gutter={16} style={{ marginBottom: "10px" }}>
+        <Col>Veličina objekta:</Col>
+        <Col>
+          <Radio.Group
+            defaultValue={globalTableOptions.draggArea}
+            size="small"
+            onChange={onChangeDraggArea}
+          >
+            <Radio.Button value={1}>Mala</Radio.Button>
+            <Radio.Button value={2}>Srednja</Radio.Button>
+            <Radio.Button value={3}>Velika</Radio.Button>
+          </Radio.Group>
+        </Col>
+      </Row>
       <div
         style={{
           height: "500px",
-          width: "800px",
+          width:
+            draggAreaLookup[
+              globalTableOptions.draggArea as keyof typeof draggAreaLookup
+            ].width,
           position: "relative",
           overflow: "auto",
           padding: "0",
@@ -81,8 +103,8 @@ export default function Page() {
       >
         {listItems}
       </div>
-      <br />
-      <Space>
+
+      <Space style={{ marginTop: "10px" }}>
         <Dropdown menu={{ items }}>
           <Button>
             <Space>

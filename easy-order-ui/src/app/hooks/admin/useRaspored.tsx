@@ -3,6 +3,7 @@ import {
   updateTablePosition,
 } from "@/app/redux/features/table-slice";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { RadioChangeEvent } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,17 +14,12 @@ export const useRaspored = () => {
     isShowId: false,
     noChair: false,
     grid: false,
+    draggArea: 2,
   });
+
   const tableList = useAppSelector((state) => {
     return state.tableReducer;
   });
-
-  const customBounds = {
-    left: 0,
-    top: 0,
-    right: 705,
-    bottom: 405,
-  };
 
   const handleDrag = (e: any, ui: any, id: string) => {
     const newPosition = {
@@ -87,6 +83,14 @@ export const useRaspored = () => {
     dispatch(setNewTable(newTable));
   };
 
+  const onChangeDraggArea = ({ target: { value } }: RadioChangeEvent) => {
+    console.log(value);
+    setGlobalTableOptions((prevState: any) => ({
+      ...prevState,
+      draggArea: value,
+    }));
+  };
+
   const onChangeCheckbox = (e: CheckboxChangeEvent) => {
     setGlobalTableOptions({
       ...globalTableOptions,
@@ -105,10 +109,9 @@ export const useRaspored = () => {
   return {
     tableList,
     globalTableOptions,
-    customBounds,
     handleDrag,
-    startPosition,
     addNewTable,
+    onChangeDraggArea,
     onChangeCheckbox,
     handleNoChair,
     handleGrid,

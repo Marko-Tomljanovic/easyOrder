@@ -7,10 +7,9 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
   const {
     tableList,
     globalTableOptions,
-    customBounds,
     handleDrag,
-    startPosition,
     addNewTable,
+    onChangeDraggArea,
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
@@ -21,10 +20,9 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
       value={{
         tableList,
         globalTableOptions,
-        customBounds,
         handleDrag,
-        startPosition,
         addNewTable,
+        onChangeDraggArea,
         onChangeCheckbox,
         handleNoChair,
         handleGrid,
