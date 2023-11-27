@@ -74,7 +74,7 @@ export default function Page() {
 
   return (
     <>
-      <Row gutter={16} style={{ marginBottom: "10px" }}>
+      <Row gutter={16} style={{ marginBottom: "8px" }}>
         <Col>Veličina objekta:</Col>
         <Col>
           <Radio.Group
@@ -103,20 +103,27 @@ export default function Page() {
       >
         {listItems}
       </div>
-
-      <Space style={{ marginTop: "10px" }}>
-        <Dropdown menu={{ items }}>
-          <Button>
-            <Space>
-              Dodaj stol
-              <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
-        <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
-        <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
-        <Checkbox onChange={handleGrid}>Veći grid</Checkbox>
-      </Space>
+      <Row gutter={16} align="middle" style={{ marginTop: "7px" }}>
+        <Col>
+          <Dropdown menu={{ items }}>
+            <Button>
+              <Space>
+                Dodaj stol
+                <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
+        </Col>
+        <Col>
+          <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
+        </Col>
+        <Col>
+          <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
+        </Col>
+        <Col>
+          <Checkbox onChange={handleGrid}>Veći grid</Checkbox>
+        </Col>
+      </Row>
     </>
   );
 }
