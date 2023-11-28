@@ -3,6 +3,7 @@ import {
   updateTablePosition,
 } from "@/app/redux/features/table-slice";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { draggAreaLookup } from "@/constants/lookups/admin";
 import { RadioChangeEvent } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useState } from "react";
@@ -62,7 +63,18 @@ export const useRaspored = () => {
       if (!tableCollision) {
         return false;
       } else {
-        newPosition.x += 100;
+        if (
+          draggAreaLookup[
+            globalTableOptions.draggArea as keyof typeof draggAreaLookup
+          ].customBounds.right -
+            50 <
+          newPosition.x
+        ) {
+          newPosition.x = 0;
+          newPosition.y += 100;
+        } else {
+          newPosition.x += 100;
+        }
         isCollision();
       }
     };
