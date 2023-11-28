@@ -115,8 +115,8 @@ export default function SettingsModal({
               onChange={onChangeForm}
               defaultValue={isSquare}
             >
-              <Radio.Button value={true}>Okrugli</Radio.Button>
-              <Radio.Button value={false}>Četvrtasti</Radio.Button>
+              <Radio.Button value={false}>Okrugli</Radio.Button>
+              <Radio.Button value={true}>Četvrtasti</Radio.Button>
             </Radio.Group>
           </Col>
         </Row>
