@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from "antd";
+import { Menu } from "antd";
 import React from "react";
 import {
   AppstoreOutlined,
@@ -32,16 +32,37 @@ export default function HomeMenu() {
     }
   };
 
-  const onClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "dashboard") router.push("/dashboard");
-    if (e.key === "meni") router.push("/meni");
-    if (e.key === "statistika") router.push("/admin/statistika");
-    if (e.key === "bazaArtikala") router.push("/admin/baza-artikala");
-    if (e.key === "raspored") router.push("/admin/raspored");
-    if (e.key === "osoblje") router.push("/admin/osoblje");
+  const onClick = (e: any) => {
+    if (e.key === "dashboard") {
+      router.push("/dashboard");
+      return;
+    }
+    if (e.key === "meni") {
+      router.push("/meni");
+      return;
+    }
+    if (e.key === "statistika") {
+      router.push("/admin/statistika");
+      return;
+    }
+    if (e.key === "bazaArtikala") {
+      router.push("/admin/baza-artikala");
+      return;
+    }
+    if (e.key === "raspored") {
+      router.push("/admin/raspored");
+      return;
+    }
+    if (e.key === "osoblje") {
+      router.push("/admin/osoblje");
+      return;
+    }
     if (e.key === "logOut") {
-      localStorage.removeItem("isCurrentUser");
-      router.push("/");
+      {
+        localStorage.removeItem("isCurrentUser");
+        router.push("/");
+        return;
+      }
     }
   };
 
