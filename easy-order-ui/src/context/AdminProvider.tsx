@@ -6,26 +6,34 @@ const AdminContext = createContext<any>(undefined);
 export default function AdminProvider({ children }: { children: ReactNode }) {
   const {
     tableList,
+    dividerList,
     globalTableOptions,
     handleDrag,
+    handleDragDivider,
     addNewTable,
+    addNewDivider,
     onChangeDraggArea,
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
+    contextHolder,
   } = useRaspored();
 
   return (
     <AdminContext.Provider
       value={{
         tableList,
+        dividerList,
         globalTableOptions,
         handleDrag,
+        handleDragDivider,
         addNewTable,
+        addNewDivider,
         onChangeDraggArea,
         onChangeCheckbox,
         handleNoChair,
         handleGrid,
+        contextHolder,
       }}
     >
       {children}

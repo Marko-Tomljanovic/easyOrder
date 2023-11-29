@@ -2,14 +2,17 @@ export const draggAreaLookup = {
   1: {
     width: "500px",
     customBounds: { left: 0, top: 0, right: 408, bottom: 405 },
+    customBoundsDivides: { left: 40, top: 0, right: 450, bottom: 5 },
   },
   2: {
     width: "800px",
     customBounds: { left: 0, top: 0, right: 708, bottom: 405 },
+    customBoundsDivides: { left: 40, top: 0, right: 750, bottom: 5 },
   },
   3: {
     width: "1000px",
     customBounds: { left: 0, top: 0, right: 908, bottom: 405 },
+    customBoundsDivides: { left: 40, top: 0, right: 950, bottom: 5 },
   },
 };
 

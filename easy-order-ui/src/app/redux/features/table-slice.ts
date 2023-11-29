@@ -17,7 +17,7 @@ type InitialState = Table[];
 const initialState = [] as InitialState;
 
 export const table = createSlice({
-  name: "auth",
+  name: "table",
   initialState,
   reducers: {
     setNewTable: (state, action: PayloadAction<Table>) => {

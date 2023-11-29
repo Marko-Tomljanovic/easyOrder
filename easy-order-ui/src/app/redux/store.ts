@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth-slice";
 import loadingReducer from "./features/loading-slice";
 import tableReducer from "./features/table-slice";
+import dividerReducer from "./features/divider-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     authReducer,
     loadingReducer,
     tableReducer,
+    dividerReducer,
   },
 });
 

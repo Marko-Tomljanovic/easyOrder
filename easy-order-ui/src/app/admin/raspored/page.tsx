@@ -1,26 +1,31 @@
 "use client";
 
 import React from "react";
-import { Button, Checkbox, Col, Dropdown, Radio, Row, Space } from "antd";
+import { Button, Checkbox, Col, Dropdown, Radio, Row } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useAdmin } from "@/context/AdminProvider";
-import CircleTable from "@/app/components/draggabile-components/table/DraggabileElement";
+import DraggabileElement from "@/app/components/draggabile-components/table/DraggabileElement";
+import DraggabileDivider from "@/app/components/draggabile-components/divider/DraggabileDivider";
 import { draggAreaLookup } from "@/constants/lookups/admin";
 
 export default function Page() {
   const {
     tableList,
+    dividerList,
     globalTableOptions,
     handleDrag,
+    handleDragDivider,
     addNewTable,
+    addNewDivider,
     onChangeDraggArea,
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
+    contextHolder,
   } = useAdmin();
 
-  const listItems = tableList.map((table: any) => (
-    <CircleTable
+  const listTable = tableList.map((table: any) => (
+    <DraggabileElement
       key={table.id}
       id={table.id}
       position={table.position}
@@ -36,6 +41,20 @@ export default function Page() {
       showId={globalTableOptions.isShowId}
       noChair={globalTableOptions.noChair}
       grid={globalTableOptions.grid}
+    />
+  ));
+
+  const listDivider = dividerList.map((divider: any) => (
+    <DraggabileDivider
+      key={divider.id}
+      id={divider.id}
+      position={divider.position}
+      handleDrag={handleDragDivider}
+      customBounds={
+        draggAreaLookup[
+          globalTableOptions.draggArea as keyof typeof draggAreaLookup
+        ].customBoundsDivides
+      }
     />
   ));
 
@@ -74,6 +93,7 @@ export default function Page() {
 
   return (
     <>
+      {contextHolder}
       <Row gutter={16} style={{ marginBottom: "8px" }}>
         <Col>Veličina objekta:</Col>
         <Col>
@@ -101,18 +121,20 @@ export default function Page() {
           border: "solid 1px",
         }}
       >
-        {listItems}
+        {listTable}
+        {listDivider}
       </div>
       <Row gutter={16} align="middle" style={{ marginTop: "7px" }}>
         <Col>
           <Dropdown menu={{ items }}>
             <Button>
-              <Space>
-                Dodaj stol
-                <DownOutlined />
-              </Space>
+              Dodaj stol
+              <DownOutlined />
             </Button>
           </Dropdown>
+        </Col>
+        <Col>
+          <Button onClick={addNewDivider}>Dodaj divider</Button>
         </Col>
         <Col>
           <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
