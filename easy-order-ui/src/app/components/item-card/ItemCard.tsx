@@ -1,6 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
-import image from "@/app/components/item-card/123.jpg";
 import Image from "next/image";
 
 interface Item {
@@ -19,7 +18,7 @@ export default function ItemCard() {
     >
       <Row gutter={16}>
         <Col span={8}>
-          <Image src={image} alt="nesto" width="50" height="140" />
+          {/* <Image src="" alt="nesto" width="50" height="140" /> */}
         </Col>
         <Col>
           <div>
