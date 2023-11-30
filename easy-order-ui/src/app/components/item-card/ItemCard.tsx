@@ -1,4 +1,7 @@
-import { Card, Flex } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Col, Row } from "antd";
+import image from "@/app/components/item-card/123.jpg";
+import Image from "next/image";
 
 interface Item {
   key: string;
@@ -6,35 +9,34 @@ interface Item {
 }
 
 export default function ItemCard() {
-  const items: Item[] = [
-    {
-      key: "1",
-      label: "Kava",
-    },
-    {
-      key: "2",
-      label: "Capuciono",
-    },
-    {
-      key: "3",
-      label: "Coca-Cola",
-    },
-    {
-      key: "4",
-      label: "Fanta",
-    },
-    {
-      key: "5",
-      label: "Plava laguna",
-    },
-  ];
   return (
-    <Flex wrap="wrap" gap="small">
-      {items.map((item) => (
-        <Card key={item.key} style={{ width: 150, height: 150 }}>
-          <p>{item.label}</p>
-        </Card>
-      ))}
-    </Flex>
+    <div
+      style={{
+        width: "160px",
+        height: "150px",
+        border: "solid 1px",
+      }}
+    >
+      <Row gutter={16}>
+        <Col span={8}>
+          <Image src={image} alt="nesto" width="50" height="140" />
+        </Col>
+        <Col>
+          <div>
+            <h4 style={{ marginBottom: 5 }}>Product Title</h4>
+          </div>
+          <div>
+            <p style={{ marginBottom: 10 }}>Product Price</p>
+          </div>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            style={{ width: "100%" }}
+          >
+            Add
+          </Button>
+        </Col>
+      </Row>
+    </div>
   );
 }
