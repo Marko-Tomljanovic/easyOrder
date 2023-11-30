@@ -16,7 +16,6 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
-    contextHolder,
   } = useRaspored();
 
   return (
@@ -33,7 +32,6 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
         onChangeCheckbox,
         handleNoChair,
         handleGrid,
-        contextHolder,
       }}
     >
       {children}

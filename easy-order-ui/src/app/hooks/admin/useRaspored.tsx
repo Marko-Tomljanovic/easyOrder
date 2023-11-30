@@ -13,8 +13,7 @@ export const useRaspored = () => {
     handleGrid,
   } = useTable();
 
-  const { dividerList, handleDragDivider, addNewDivider, contextHolder } =
-    useDivider();
+  const { dividerList, handleDragDivider, addNewDivider } = useDivider();
 
   return {
     tableList,
@@ -28,6 +27,5 @@ export const useRaspored = () => {
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
-    contextHolder,
   };
 };

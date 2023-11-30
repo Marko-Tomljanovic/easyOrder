@@ -1,23 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-  value: AuthState;
-};
-type AuthState = {
   isLoading: boolean;
 };
 const initialState = {
-  value: {
-    isLoading: false,
-  } as AuthState,
+  isLoading: false,
 } as InitialState;
 
 export const loading = createSlice({
   name: "loading",
   initialState,
   reducers: {
-    toggleIsLoading: () => {
-      return initialState;
+    toggleIsLoading: (state) => {
+      state.isLoading = !state.isLoading;
     },
   },
 });

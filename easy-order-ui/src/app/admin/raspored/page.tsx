@@ -7,6 +7,7 @@ import { useAdmin } from "@/context/AdminProvider";
 import DraggabileElement from "@/app/components/draggabile-components/table/DraggabileElement";
 import DraggabileDivider from "@/app/components/draggabile-components/divider/DraggabileDivider";
 import { draggAreaLookup } from "@/constants/lookups/admin";
+import { useGlobal } from "@/context/GlobalProvider";
 
 export default function Page() {
   const {
@@ -21,8 +22,9 @@ export default function Page() {
     onChangeCheckbox,
     handleNoChair,
     handleGrid,
-    contextHolder,
   } = useAdmin();
+
+  const { contextHolder } = useGlobal();
 
   const listTable = tableList.map((table: any) => (
     <DraggabileElement

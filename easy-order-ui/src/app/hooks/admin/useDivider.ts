@@ -3,12 +3,12 @@ import {
   updateDividerPosition,
 } from "@/app/redux/features/divider-slice";
 import { AppDispatch, useAppSelector } from "@/app/redux/store";
-import { message } from "antd";
+import { useGlobal } from "@/context/GlobalProvider";
 import { useDispatch } from "react-redux";
 
 export const useDivider = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [messageApi, contextHolder] = message.useMessage();
+  const { messageApi } = useGlobal();
   const dividerList = useAppSelector((state) => {
     return state.dividerReducer;
   });
@@ -85,6 +85,5 @@ export const useDivider = () => {
     dividerList,
     handleDragDivider,
     addNewDivider,
-    contextHolder,
   };
 };

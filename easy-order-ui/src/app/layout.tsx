@@ -10,6 +10,7 @@ import SidebarNavigation from "./components/navigation/sidebar/SidebarNavigation
 import { Content } from "antd/es/layout/layout";
 import { usePathname } from "next/navigation";
 import { checkLocalStorage } from "@/middleware/auth";
+import GlobalProvider from "@/context/GlobalProvider";
 
 export default function RootLayout({
   children,
@@ -28,23 +29,25 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProvider>
-          <Layout style={{ height: "100vh" }}>
-            {isClient ? <SidebarNavigation /> : null}
-            <Layout>
-              <PageHeaderNavigation />
-              <Content style={{ margin: "24px 16px 0", overflowY: "auto" }}>
-                <div
-                  style={{
-                    background: "#FFFFFF",
-                    padding: "1rem",
-                  }}
-                >
-                  {children}
-                </div>
-              </Content>
-              <FotterNavigation />
+          <GlobalProvider>
+            <Layout style={{ height: "100vh" }}>
+              {isClient ? <SidebarNavigation /> : null}
+              <Layout>
+                <PageHeaderNavigation />
+                <Content style={{ margin: "24px 16px 0", overflowY: "auto" }}>
+                  <div
+                    style={{
+                      background: "#FFFFFF",
+                      padding: "1rem",
+                    }}
+                  >
+                    {children}
+                  </div>
+                </Content>
+                <FotterNavigation />
+              </Layout>
             </Layout>
-          </Layout>
+          </GlobalProvider>
         </ReduxProvider>
       </body>
     </html>
