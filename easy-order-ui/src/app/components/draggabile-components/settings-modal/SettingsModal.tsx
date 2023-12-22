@@ -1,6 +1,8 @@
 import {
+  Button,
   Col,
   Modal,
+  Popconfirm,
   QRCode,
   Radio,
   RadioChangeEvent,
@@ -59,6 +61,10 @@ export default function SettingsModal({
     dispatch(updateTableForm({ id, newForm }));
   };
 
+  const handleDelete = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Modal
@@ -66,6 +72,21 @@ export default function SettingsModal({
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Popconfirm
+            title="Obrisati stol"
+            description="Jeste li sigurni da želite obrisati odabrani stol?"
+            onConfirm={handleDelete}
+            // onCancel={cancel}
+            okText="Da"
+            cancelText="Ne"
+          >
+            <Button danger>Obrisati stol</Button>
+          </Popconfirm>,
+          <Button key="submit" type="primary" onClick={handleOk}>
+            Potvrdi
+          </Button>,
+        ]}
       >
         <Table
           id={id}
