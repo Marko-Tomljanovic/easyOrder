@@ -84,9 +84,23 @@ export const useTable = () => {
     }
   };
 
+  const findMissingId = () => {
+    const sortedIds = tableList
+      .map((table) => parseInt(table.id))
+      .sort((a, b) => a - b);
+
+    for (let i = 1; i <= sortedIds.length; i++) {
+      if (sortedIds[i - 1] !== i) {
+        return i.toString();
+      }
+    }
+    // If all sequential IDs are present, return the next ID in the sequence
+    return (sortedIds.length + 1).toString();
+  };
+
   const addNewTable = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
-      id: String(tableList.length + 1),
+      id: findMissingId(),
       size: 1,
       position: startPosition(),
       isSquare: shape,

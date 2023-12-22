@@ -12,6 +12,7 @@ import {
 } from "antd";
 import Table from "../table/Table";
 import {
+  deleteTable,
   updateTableChair,
   updateTableForm,
   updateTableSize,
@@ -62,7 +63,7 @@ export default function SettingsModal({
   };
 
   const handleDelete = () => {
-    setIsModalOpen(false);
+    dispatch(deleteTable({ id }));
   };
 
   return (

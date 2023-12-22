@@ -23,6 +23,11 @@ export const table = createSlice({
     setNewTable: (state, action: PayloadAction<Table>) => {
       state.push(action.payload);
     },
+    deleteTable: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      const newState = state.filter((table) => table.id !== id);
+      return newState;
+    },
     updateTablePosition: (
       state,
       action: PayloadAction<{ id: string; newPosition: TablePosition }>
@@ -68,6 +73,7 @@ export const table = createSlice({
 
 export const {
   setNewTable,
+  deleteTable,
   updateTablePosition,
   updateTableSize,
   updateTableChair,
