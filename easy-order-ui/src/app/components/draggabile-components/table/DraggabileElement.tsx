@@ -79,8 +79,6 @@ export default function DraggabileElement({
         size={size}
         isSquare={isSquare}
         isTwoChairs={isTwoChairs}
-        showId={showId}
-        noChair={noChair}
       />
     </>
   );

@@ -5,7 +5,6 @@ import { useRef } from "react";
 interface Props {
   id?: string;
   isSquare?: boolean;
-  // size?: number;
   size: number & (1 | 2 | 3 | 4);
   isTwoChairs?: boolean;
   showId?: boolean;
@@ -27,6 +26,11 @@ export default function Item({
   const chairs = () => {
     if (isTwoChairs) return [90, 270];
     else return [0, 90, 180, 270];
+  };
+
+  const isNoChairs = () => {
+    if (modalMode) return false;
+    else return noChair;
   };
 
   return (
@@ -81,7 +85,7 @@ export default function Item({
             ref={draggableRef}
             key={angle}
             style={
-              noChair
+              isNoChairs()
                 ? {}
                 : {
                     position: "absolute",

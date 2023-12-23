@@ -23,11 +23,6 @@ export const table = createSlice({
     setNewTable: (state, action: PayloadAction<Table>) => {
       state.push(action.payload);
     },
-    deleteTable: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
-      const newState = state.filter((table) => table.id !== id);
-      return newState;
-    },
     updateTablePosition: (
       state,
       action: PayloadAction<{ id: string; newPosition: TablePosition }>
@@ -38,56 +33,37 @@ export const table = createSlice({
         tableToUpdate.position = newPosition;
       }
     },
-    updateTableSize: (
+    updateTableProps: (
       state,
-      action: PayloadAction<{ id: string; newSize: number }>
+      action: PayloadAction<{
+        id: string;
+        newId: string;
+        newSize: number;
+        changeChairs: boolean;
+        newForm: boolean;
+      }>
     ) => {
-      const { id, newSize } = action.payload;
+      const { id, newId, newSize, changeChairs, newForm } = action.payload;
       const tableToUpdate = state.find((table) => table.id === id);
       if (tableToUpdate) {
         tableToUpdate.size = newSize;
-      }
-    },
-    updateTableChair: (
-      state,
-      action: PayloadAction<{ id: string; changeChairs: boolean }>
-    ) => {
-      const { id, changeChairs } = action.payload;
-      const tableToUpdate = state.find((table) => table.id === id);
-      if (tableToUpdate) {
         tableToUpdate.isTwoChairs = changeChairs;
-      }
-    },
-    updateTableForm: (
-      state,
-      action: PayloadAction<{ id: string; newForm: boolean }>
-    ) => {
-      const { id, newForm } = action.payload;
-      const tableToUpdate = state.find((table) => table.id === id);
-      if (tableToUpdate) {
         tableToUpdate.isSquare = newForm;
-      }
-    },
-    udateTableId: (
-      state,
-      action: PayloadAction<{ id: string; newId: string }>
-    ) => {
-      const { id, newId } = action.payload;
-      const tableToUpdate = state.find((table) => table.id === id);
-      if (tableToUpdate) {
         tableToUpdate.id = newId;
       }
+    },
+    deleteTable: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      const newState = state.filter((table) => table.id !== id);
+      return newState;
     },
   },
 });
 
 export const {
   setNewTable,
-  deleteTable,
+  updateTableProps,
   updateTablePosition,
-  updateTableSize,
-  updateTableChair,
-  updateTableForm,
-  udateTableId,
+  deleteTable,
 } = table.actions;
 export default table.reducer;

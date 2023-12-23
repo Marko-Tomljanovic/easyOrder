@@ -13,21 +13,18 @@ import {
 } from "antd";
 import Table from "../table/Table";
 import {
-  udateTableId,
   deleteTable,
-  updateTableChair,
-  updateTableForm,
-  updateTableSize,
+  updateTableProps,
 } from "@/app/redux/features/table-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { useEffect, useState } from "react";
 
 type TableType = {
-  id: string;
-  size: number & (1 | 2 | 3 | 4);
-  isSquare: boolean;
-  isTwoChairs: boolean;
+  newId: string;
+  newSize: number & (1 | 2 | 3 | 4);
+  newForm: boolean;
+  changeChairs: boolean;
 };
 
 export default function SettingsModal({
@@ -37,8 +34,6 @@ export default function SettingsModal({
   size,
   isSquare,
   isTwoChairs,
-  showId,
-  noChair,
 }: {
   isModalOpen: boolean;
   setIsModalOpen: any;
@@ -46,14 +41,12 @@ export default function SettingsModal({
   size: number & (1 | 2 | 3 | 4);
   isSquare: any;
   isTwoChairs: any;
-  showId: any;
-  noChair: any;
 }) {
   const [tempTableData, setTempTableData] = useState<TableType>({
-    id,
-    size,
-    isSquare,
-    isTwoChairs,
+    newId: id,
+    newSize: size,
+    changeChairs: isTwoChairs,
+    newForm: isSquare,
   });
 
   useEffect(() => {
@@ -61,14 +54,10 @@ export default function SettingsModal({
   }, [tempTableData]);
   const dispatch = useDispatch<AppDispatch>();
   const handleOk = () => {
-    const newId = tempTableData.id;
-    const newSize = tempTableData.size;
-    const changeChairs = tempTableData.isTwoChairs;
-    const newForm = tempTableData.isSquare;
-    dispatch(updateTableSize({ id, newSize }));
-    dispatch(updateTableChair({ id, changeChairs }));
-    dispatch(updateTableForm({ id, newForm }));
-    dispatch(udateTableId({ id, newId }));
+    const { newId, newSize, changeChairs, newForm } = tempTableData;
+
+    dispatch(updateTableProps({ id, newId, newSize, changeChairs, newForm }));
+
     setIsModalOpen(false);
   };
 
@@ -76,10 +65,10 @@ export default function SettingsModal({
     setIsModalOpen(false);
   };
 
-  const changeSize = (newSize: number) => {
+  const changeSize = (value: number) => {
     setTempTableData((prevState: any) => ({
       ...prevState,
-      size: newSize,
+      newSize: value,
     }));
   };
 
@@ -87,7 +76,7 @@ export default function SettingsModal({
     const changeChairs = e.target.value;
     setTempTableData((prevState: any) => ({
       ...prevState,
-      isTwoChairs: changeChairs,
+      changeChairs: changeChairs,
     }));
   };
 
@@ -95,7 +84,7 @@ export default function SettingsModal({
     const newForm = e.target.value;
     setTempTableData((prevState: any) => ({
       ...prevState,
-      isSquare: newForm,
+      newForm: newForm,
     }));
   };
 
@@ -103,10 +92,10 @@ export default function SettingsModal({
     dispatch(deleteTable({ id }));
   };
 
-  const handleChangeId = (newId: string | null) => {
+  const handleChangeId = (value: string | null) => {
     setTempTableData((prevState: any) => ({
       ...prevState,
-      id: newId,
+      newId: value,
     }));
   };
 
@@ -134,10 +123,10 @@ export default function SettingsModal({
         ]}
       >
         <Table
-          id={tempTableData.id}
-          isSquare={tempTableData.isSquare}
-          size={tempTableData.size}
-          isTwoChairs={tempTableData.isTwoChairs}
+          id={tempTableData.newId}
+          isSquare={tempTableData.newForm}
+          size={tempTableData.newSize}
+          isTwoChairs={tempTableData.changeChairs}
           showId={true}
           noChair={false}
           modalMode
@@ -155,7 +144,7 @@ export default function SettingsModal({
               min={"1"}
               max={"50"}
               onChange={handleChangeId}
-              value={tempTableData.id}
+              value={tempTableData.newId}
             />
           </Col>
         </Row>
@@ -168,7 +157,7 @@ export default function SettingsModal({
               min={1}
               max={4}
               onChange={changeSize}
-              value={typeof size === "number" ? tempTableData.size : 0}
+              value={typeof size === "number" ? tempTableData.newSize : 0}
             />
           </Col>
         </Row>
@@ -181,7 +170,7 @@ export default function SettingsModal({
             <Radio.Group
               size="small"
               onChange={onChangeChairs}
-              defaultValue={tempTableData.isTwoChairs}
+              defaultValue={tempTableData.changeChairs}
             >
               <Radio.Button value={true}>Dvije Stolice</Radio.Button>
               <Radio.Button value={false}>Četiri stolice</Radio.Button>
@@ -196,7 +185,7 @@ export default function SettingsModal({
             <Radio.Group
               size="small"
               onChange={onChangeForm}
-              defaultValue={tempTableData.isSquare}
+              defaultValue={tempTableData.newForm}
             >
               <Radio.Button value={false}>Okrugli</Radio.Button>
               <Radio.Button value={true}>Četvrtasti</Radio.Button>

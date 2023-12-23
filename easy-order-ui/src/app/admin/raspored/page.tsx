@@ -142,7 +142,7 @@ export default function Page() {
           <Checkbox onChange={onChangeCheckbox}>Prikaži id stola</Checkbox>
         </Col>
         <Col>
-          <Checkbox onChange={handleNoChair}>Bez stolica</Checkbox>
+          <Checkbox onChange={handleNoChair}>Sakrij stolice</Checkbox>
         </Col>
         <Col>
           <Checkbox onChange={handleGrid}>Veći grid</Checkbox>
