@@ -27,13 +27,6 @@ type TableType = {
   changeChairs: boolean;
 };
 
-// const INIT_TEMPTABLE_DATA ={
-//   newId: string;
-//   newSize: number & (1 | 2 | 3 | 4);
-//   newForm: boolean;
-//   changeChairs: boolean;
-// }
-
 export default function SettingsModal({
   isModalOpen,
   setIsModalOpen,

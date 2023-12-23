@@ -13,9 +13,9 @@ export const subtitleLookup = {
   "/": "",
   "/register": "",
   "/dashboard": "Praćenje narudžbi",
-  "/baza-artikala": "",
-  "/raspored": "",
-  "/statistika": "",
+  "/admin/baza-artikala": "",
+  "/admin/raspored": "Planiranje prostora",
+  "/admin/statistika": "",
 };
 
 export const keyLookup = {
