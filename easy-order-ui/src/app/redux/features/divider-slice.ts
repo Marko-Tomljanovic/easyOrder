@@ -6,6 +6,7 @@ type DividerPosition = {
 };
 
 type Divider = {
+  key: string;
   id: string;
   size: null | number;
   position: DividerPosition | undefined;

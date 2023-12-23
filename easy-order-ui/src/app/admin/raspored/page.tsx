@@ -28,7 +28,7 @@ export default function Page() {
 
   const listTable = tableList.map((table: any) => (
     <DraggabileElement
-      key={table.id}
+      key={table.key}
       id={table.id}
       position={table.position}
       size={table.size}
@@ -48,7 +48,7 @@ export default function Page() {
 
   const listDivider = dividerList.map((divider: any) => (
     <DraggabileDivider
-      key={divider.id}
+      key={divider.key}
       id={divider.id}
       position={divider.position}
       handleDrag={handleDragDivider}

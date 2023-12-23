@@ -6,6 +6,7 @@ type TablePosition = {
 };
 
 type Table = {
+  key: string;
   id: string;
   size: null | number;
   position: TablePosition | undefined;

@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 export const useDivider = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { messageApi } = useGlobal();
+  const { v4 } = require("uuid");
   const dividerList = useAppSelector((state) => {
     return state.dividerReducer;
   });
@@ -74,6 +75,7 @@ export const useDivider = () => {
       return;
     }
     const newDivider = {
+      key: v4(),
       id: String(dividerList.length + 1),
       size: 1,
       position: startPosition(),

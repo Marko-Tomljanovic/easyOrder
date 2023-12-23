@@ -18,7 +18,7 @@ import {
 } from "@/app/redux/features/table-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type TableType = {
   newId: string;
@@ -49,15 +49,10 @@ export default function SettingsModal({
     newForm: isSquare,
   });
 
-  useEffect(() => {
-    console.log("tempTableData", tempTableData);
-  }, [tempTableData]);
   const dispatch = useDispatch<AppDispatch>();
   const handleOk = () => {
     const { newId, newSize, changeChairs, newForm } = tempTableData;
-
     dispatch(updateTableProps({ id, newId, newSize, changeChairs, newForm }));
-
     setIsModalOpen(false);
   };
 
@@ -108,14 +103,16 @@ export default function SettingsModal({
         onCancel={handleCancel}
         footer={[
           <Popconfirm
+            key="popconfirm"
             title="Obrisati stol"
             description="Jeste li sigurni da želite obrisati odabrani stol?"
             onConfirm={handleDelete}
-            // onCancel={cancel}
             okText="Da"
             cancelText="Ne"
           >
-            <Button danger>Obrisati stol</Button>
+            <Button key="delete" danger>
+              Obrisati stol
+            </Button>
           </Popconfirm>,
           <Button key="submit" type="primary" onClick={handleOk}>
             Potvrdi

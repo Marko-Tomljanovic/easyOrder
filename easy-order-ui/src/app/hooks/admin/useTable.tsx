@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 
 export const useTable = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { v4 } = require("uuid");
   const [globalTableOptions, setGlobalTableOptions] = useState<any>({
     isShowId: false,
     noChair: false,
@@ -100,6 +101,7 @@ export const useTable = () => {
 
   const addNewTable = (shape: boolean, chairNumber: boolean) => {
     const newTable = {
+      key: v4(),
       id: findMissingId(),
       size: 1,
       position: startPosition(),
