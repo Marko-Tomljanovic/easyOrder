@@ -88,6 +88,7 @@ export default function SettingsModal({
   };
 
   const handleChangeId = (value: string | null) => {
+    if (!value) return;
     setTempTableData((prevState: any) => ({
       ...prevState,
       newId: value,
