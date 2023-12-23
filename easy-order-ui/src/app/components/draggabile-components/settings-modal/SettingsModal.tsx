@@ -27,6 +27,13 @@ type TableType = {
   changeChairs: boolean;
 };
 
+// const INIT_TEMPTABLE_DATA ={
+//   newId: string;
+//   newSize: number & (1 | 2 | 3 | 4);
+//   newForm: boolean;
+//   changeChairs: boolean;
+// }
+
 export default function SettingsModal({
   isModalOpen,
   setIsModalOpen,
@@ -57,6 +64,12 @@ export default function SettingsModal({
   };
 
   const handleCancel = () => {
+    setTempTableData({
+      newId: id,
+      newSize: size,
+      changeChairs: isTwoChairs,
+      newForm: isSquare,
+    });
     setIsModalOpen(false);
   };
 
