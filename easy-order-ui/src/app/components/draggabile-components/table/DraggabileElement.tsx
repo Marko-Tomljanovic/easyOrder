@@ -9,7 +9,7 @@ interface Props {
   position?: any;
   handleDrag: any;
   isSquare?: boolean;
-  size?: number & (1 | 2 | 3 | 4);
+  size: number & (1 | 2 | 3 | 4);
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;

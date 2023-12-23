@@ -25,7 +25,7 @@ import { useEffect, useState } from "react";
 
 type TableType = {
   id: string;
-  size: number;
+  size: number & (1 | 2 | 3 | 4);
   isSquare: boolean;
   isTwoChairs: boolean;
 };
@@ -43,7 +43,7 @@ export default function SettingsModal({
   isModalOpen: boolean;
   setIsModalOpen: any;
   id: any;
-  size: number;
+  size: number & (1 | 2 | 3 | 4);
   isSquare: any;
   isTwoChairs: any;
   showId: any;
