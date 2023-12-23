@@ -1,6 +1,7 @@
 import {
   Button,
   Col,
+  InputNumber,
   Modal,
   Popconfirm,
   QRCode,
@@ -12,6 +13,7 @@ import {
 } from "antd";
 import Table from "../table/Table";
 import {
+  udateTableId,
   deleteTable,
   updateTableChair,
   updateTableForm,
@@ -19,6 +21,14 @@ import {
 } from "@/app/redux/features/table-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
+import { useEffect, useState } from "react";
+
+type TableType = {
+  id: string;
+  size: number;
+  isSquare: boolean;
+  isTwoChairs: boolean;
+};
 
 export default function SettingsModal({
   isModalOpen,
@@ -33,14 +43,32 @@ export default function SettingsModal({
   isModalOpen: boolean;
   setIsModalOpen: any;
   id: any;
-  size: any;
+  size: number;
   isSquare: any;
   isTwoChairs: any;
   showId: any;
   noChair: any;
 }) {
+  const [tempTableData, setTempTableData] = useState<TableType>({
+    id,
+    size,
+    isSquare,
+    isTwoChairs,
+  });
+
+  useEffect(() => {
+    console.log("tempTableData", tempTableData);
+  }, [tempTableData]);
   const dispatch = useDispatch<AppDispatch>();
   const handleOk = () => {
+    const newId = tempTableData.id;
+    const newSize = tempTableData.size;
+    const changeChairs = tempTableData.isTwoChairs;
+    const newForm = tempTableData.isSquare;
+    dispatch(updateTableSize({ id, newSize }));
+    dispatch(updateTableChair({ id, changeChairs }));
+    dispatch(updateTableForm({ id, newForm }));
+    dispatch(udateTableId({ id, newId }));
     setIsModalOpen(false);
   };
 
@@ -49,21 +77,37 @@ export default function SettingsModal({
   };
 
   const changeSize = (newSize: number) => {
-    dispatch(updateTableSize({ id, newSize }));
+    setTempTableData((prevState: any) => ({
+      ...prevState,
+      size: newSize,
+    }));
   };
 
   const onChangeChairs = (e: RadioChangeEvent) => {
     const changeChairs = e.target.value;
-    dispatch(updateTableChair({ id, changeChairs }));
+    setTempTableData((prevState: any) => ({
+      ...prevState,
+      isTwoChairs: changeChairs,
+    }));
   };
 
   const onChangeForm = (e: RadioChangeEvent) => {
     const newForm = e.target.value;
-    dispatch(updateTableForm({ id, newForm }));
+    setTempTableData((prevState: any) => ({
+      ...prevState,
+      isSquare: newForm,
+    }));
   };
 
   const handleDelete = () => {
     dispatch(deleteTable({ id }));
+  };
+
+  const handleChangeId = (newId: string | null) => {
+    setTempTableData((prevState: any) => ({
+      ...prevState,
+      id: newId,
+    }));
   };
 
   return (
@@ -90,16 +134,32 @@ export default function SettingsModal({
         ]}
       >
         <Table
-          id={id}
-          isSquare={isSquare}
-          size={size}
-          isTwoChairs={isTwoChairs}
-          showId={showId}
-          noChair={noChair}
+          id={tempTableData.id}
+          isSquare={tempTableData.isSquare}
+          size={tempTableData.size}
+          isTwoChairs={tempTableData.isTwoChairs}
+          showId={true}
+          noChair={false}
           modalMode
         />
         <br />
-        <Row gutter={16} style={{ marginBottom: "10px" }}>
+        <Row gutter={16} align={"middle"} style={{ marginBottom: "10px" }}>
+          <Col>
+            <Typography.Text>Promjena id: </Typography.Text>
+          </Col>
+          <Col span={5}>
+            <InputNumber
+              width={"100%"}
+              stringMode
+              bordered={false}
+              min={"1"}
+              max={"50"}
+              onChange={handleChangeId}
+              value={tempTableData.id}
+            />
+          </Col>
+        </Row>
+        <Row gutter={16} align={"middle"} style={{ marginBottom: "10px" }}>
           <Col>
             <Typography.Text>Veličina: </Typography.Text>
           </Col>
@@ -108,10 +168,11 @@ export default function SettingsModal({
               min={1}
               max={4}
               onChange={changeSize}
-              value={typeof size === "number" ? size : 0}
+              value={typeof size === "number" ? tempTableData.size : 0}
             />
           </Col>
         </Row>
+
         <Row gutter={16} style={{ marginBottom: "10px" }}>
           <Col>
             <Typography.Text>Broj stolica: </Typography.Text>
@@ -120,14 +181,14 @@ export default function SettingsModal({
             <Radio.Group
               size="small"
               onChange={onChangeChairs}
-              defaultValue={isTwoChairs}
+              defaultValue={tempTableData.isTwoChairs}
             >
               <Radio.Button value={true}>Dvije Stolice</Radio.Button>
               <Radio.Button value={false}>Četiri stolice</Radio.Button>
             </Radio.Group>
           </Col>
         </Row>
-        <Row gutter={16} style={{ marginBottom: "15px" }}>
+        <Row gutter={16} style={{ marginBottom: "10px" }}>
           <Col>
             <Typography.Text>Oblik stola: </Typography.Text>
           </Col>
@@ -135,13 +196,14 @@ export default function SettingsModal({
             <Radio.Group
               size="small"
               onChange={onChangeForm}
-              defaultValue={isSquare}
+              defaultValue={tempTableData.isSquare}
             >
               <Radio.Button value={false}>Okrugli</Radio.Button>
               <Radio.Button value={true}>Četvrtasti</Radio.Button>
             </Radio.Group>
           </Col>
         </Row>
+
         <Row justify="center" align="middle">
           <Col>
             <QRCode value={`www.qrWithTableId/${id}` || "-"} />

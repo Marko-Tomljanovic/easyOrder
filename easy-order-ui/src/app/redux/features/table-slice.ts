@@ -68,6 +68,16 @@ export const table = createSlice({
         tableToUpdate.isSquare = newForm;
       }
     },
+    udateTableId: (
+      state,
+      action: PayloadAction<{ id: string; newId: string }>
+    ) => {
+      const { id, newId } = action.payload;
+      const tableToUpdate = state.find((table) => table.id === id);
+      if (tableToUpdate) {
+        tableToUpdate.id = newId;
+      }
+    },
   },
 });
 
@@ -78,5 +88,6 @@ export const {
   updateTableSize,
   updateTableChair,
   updateTableForm,
+  udateTableId,
 } = table.actions;
 export default table.reducer;

@@ -5,7 +5,8 @@ import { useRef } from "react";
 interface Props {
   id?: string;
   isSquare?: boolean;
-  size?: number & (1 | 2 | 3 | 4);
+  size?: number;
+  // size?: number & (1 | 2 | 3 | 4);
   isTwoChairs?: boolean;
   showId?: boolean;
   noChair?: boolean;
