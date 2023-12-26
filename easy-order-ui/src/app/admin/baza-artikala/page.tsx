@@ -2,7 +2,7 @@
 
 import ItemCard from "@/app/components/item-card/ItemCard";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Input, Modal, Popconfirm, Tabs, message } from "antd";
+import { Col, Input, Modal, Row, Tabs, message } from "antd";
 import { useRef, useState } from "react";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
@@ -10,8 +10,7 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 const initialItems = [
   {
     label: "Svi proizvodi",
-    children: "Content of Tab 3",
-    key: "3",
+    key: "",
     closable: false,
   },
 ];
@@ -24,17 +23,26 @@ export default function Page() {
   const [activeKey, setActiveKey] = useState(initialItems[0].key);
   const newTabIndex = useRef(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [marko, setMarko] = useState<any>([
+    { id: "1", grupa: "", ime: "Kava s mlijekom", cijena: "2" },
+    { id: "2", grupa: "", ime: "Espresso", cijena: "1" },
+    { id: "3", grupa: "2", ime: "Coca-Cola", cijena: "1" },
+    { id: "4", grupa: "0", ime: "Fanta", cijena: "2" },
+    { id: "5", grupa: "0", ime: "Sprite", cijena: "1.5" },
+    { id: "6", grupa: "", ime: "Capuccino", cijena: "3" },
+    { id: "7", grupa: "", ime: "Produžena kava", cijena: "2" },
+  ]);
 
   const onChange = (key: string) => {
     console.log(key);
+    setActiveKey(key);
   };
 
   const add = () => {
-    const newActiveKey = `newTab${newTabIndex.current++}`;
+    const newActiveKey = `${newTabIndex.current++}`;
     const newPanes = [...items];
     newPanes.push({
       label: newLabel,
-      children: "Content of new Tab",
       key: newActiveKey,
       closable: true,
     });
@@ -58,6 +66,12 @@ export default function Page() {
         newActiveKey = newPanes[0].key;
       }
     }
+    //brisanje grupe iz liste proizvoda, dodati type kasnije
+    const updatedMarko = marko.map((item: any) => ({
+      ...item,
+      grupa: item.grupa === "2" ? "" : item.grupa,
+    }));
+    setMarko(updatedMarko);
     setItems(newPanes);
     setActiveKey(newActiveKey);
   };
@@ -97,12 +111,17 @@ export default function Page() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setNewLabel("");
   };
 
   const handleChange = (e: any) => {
     const { value } = e.target;
-    console.log("value", value);
-    setNewLabel(value);
+
+    const copyValue = /^\p{Lu}/u.test(value)
+      ? value
+      : value.charAt(0).toUpperCase() + value.slice(1);
+
+    setNewLabel(copyValue);
   };
 
   const showDeleteConfirm = (
@@ -124,17 +143,36 @@ export default function Page() {
     });
   };
 
+  const checkGroup = (value: string) => {
+    if (!activeKey) {
+      return true;
+    } else {
+      return value === activeKey;
+    }
+  };
+
   return (
     <>
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey="0"
+        activeKey={activeKey}
         items={items}
-        onChange={() => onChange}
+        onChange={onChange}
         type="editable-card"
         onEdit={onEdit}
       />
-      <div style={{ width: "10rem" }}></div>
-      <ItemCard />
+
+      <Row gutter={[8, 16]}>
+        {marko.map(
+          (item: any) =>
+            checkGroup(item.grupa) && (
+              <Col key={item.id}>
+                <ItemCard key={item.id} title={item.ime} price={item.cijena} />
+              </Col>
+            )
+        )}
+      </Row>
+
       <Modal
         title={`Naziv grupe`}
         open={isModalOpen}

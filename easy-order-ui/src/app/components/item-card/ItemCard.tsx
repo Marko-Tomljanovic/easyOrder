@@ -4,10 +4,11 @@ import Image from "next/image";
 
 interface Item {
   key: string;
-  label: string;
+  title: string;
+  price: string;
 }
 
-export default function ItemCard() {
+export default function ItemCard({ title, price }: Item) {
   return (
     <div
       style={{
@@ -22,10 +23,10 @@ export default function ItemCard() {
         </Col>
         <Col>
           <div>
-            <h4 style={{ marginBottom: 5 }}>Product Title</h4>
+            <h4 style={{ marginBottom: 5 }}>{title}</h4>
           </div>
           <div>
-            <p style={{ marginBottom: 10 }}>Product Price</p>
+            <p style={{ marginBottom: 10 }}>{price + ` €`}</p>
           </div>
           <Button
             type="primary"
