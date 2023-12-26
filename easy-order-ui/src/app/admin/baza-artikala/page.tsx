@@ -69,7 +69,7 @@ export default function Page() {
     //brisanje grupe iz liste proizvoda, dodati type kasnije
     const updatedMarko = marko.map((item: any) => ({
       ...item,
-      grupa: item.grupa === "2" ? "" : item.grupa,
+      grupa: item.grupa === targetKey ? "" : item.grupa,
     }));
     setMarko(updatedMarko);
     setItems(newPanes);
