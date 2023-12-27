@@ -5,16 +5,21 @@ import Image from "next/image";
 interface Item {
   key: string;
   title: string;
-  price: string;
+  price?: string;
+  addButton?: boolean;
 }
 
-export default function ItemCard({ title, price }: Item) {
+export default function ItemCard({ title, price, addButton }: Item) {
   return (
     <div
       style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         width: "160px",
         height: "150px",
         border: "solid 1px",
+        borderRadius: "4%",
       }}
     >
       <Row gutter={16}>
@@ -25,18 +30,22 @@ export default function ItemCard({ title, price }: Item) {
           <div>
             <h4 style={{ marginBottom: 5 }}>{title}</h4>
           </div>
-          <div>
-            <p style={{ marginBottom: 10 }}>{price + ` €`}</p>
-          </div>
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            style={{ width: "100%" }}
-          >
-            Add
-          </Button>
+          {price ? (
+            <div>
+              <p style={{ marginBottom: 10 }}>{price + ` €`}</p>
+            </div>
+          ) : null}
         </Col>
       </Row>
+      {addButton ? (
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          style={{ width: "100%" }}
+        >
+          Add
+        </Button>
+      ) : null}
     </div>
   );
 }
