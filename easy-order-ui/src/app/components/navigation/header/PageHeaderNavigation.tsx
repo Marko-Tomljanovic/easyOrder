@@ -1,10 +1,11 @@
 import { RollbackOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Button, Col, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { subtitleLookup, titleLookup } from "@/constants/lookups/global";
 import { PageHeaderNavigationProps } from "@/types/comon";
+import HeaderButtons from "./HeaderButtons";
 
 function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
   const pathname = usePathname();
@@ -27,20 +28,36 @@ function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
     } else return matches && matches.length > 1;
   }
 
-  return (
-    <Header style={{ padding: 0, background: color ? color : "#FFFFFF" }}>
-      <Flex gap={35} align="center" style={{ marginLeft: "2rem" }}>
-        {hasMoreThanTwoSlashes() ? (
-          <Button shape="circle" onClick={() => router.back()}>
-            <RollbackOutlined />
-          </Button>
-        ) : null}
+  const headerStyle = {
+    padding: "0",
+    background: color ? color : "#FFFFFF",
+    whiteSpace: "nowrap",
+  } as React.CSSProperties;
 
-        <p style={{ fontWeight: "bold" }}>{currentTitle()}</p>
-        <p className="gray-5" style={{ fontSize: "12px", color: "#8c8c8c" }}>
-          {currentSubtitle()}
-        </p>
-      </Flex>
+  return (
+    <Header style={headerStyle}>
+      <Row align="middle">
+        <Col span={8}>
+          {hasMoreThanTwoSlashes() ? (
+            <Button shape="circle" onClick={() => router.back()}>
+              <RollbackOutlined />
+            </Button>
+          ) : null}
+          <span style={{ fontWeight: "bold", margin: "0px 20px" }}>
+            {currentTitle()}
+          </span>
+          <span
+            className="gray-5"
+            style={{ fontSize: "12px", color: "#8c8c8c" }}
+          >
+            {currentSubtitle()}
+          </span>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={8}>
+          <HeaderButtons />
+        </Col>
+      </Row>
     </Header>
   );
 }
