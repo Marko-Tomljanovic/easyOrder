@@ -5,7 +5,7 @@ import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { subtitleLookup, titleLookup } from "@/constants/lookups/global";
 import { PageHeaderNavigationProps } from "@/types/comon";
-import HeaderButtons from "./HeaderButtons";
+import HeaderButtons from "./header-buttons/HeaderButtons";
 
 function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
   const pathname = usePathname();
@@ -55,7 +55,7 @@ function PageHeaderNavigation({ color }: PageHeaderNavigationProps) {
         </Col>
         <Col span={8}></Col>
         <Col span={8}>
-          <HeaderButtons />
+          <HeaderButtons currentTitle={currentTitle()} />
         </Col>
       </Row>
     </Header>
