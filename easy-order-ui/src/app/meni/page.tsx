@@ -39,7 +39,7 @@ export default function Page() {
     <>
       <Tabs defaultActiveKey="1" items={items} onChange={() => onChange} />
       <div style={{ width: "10rem" }}></div>
-      <ItemCard key="1" title="Coca-Cola" price="2.5" />
+      <ItemCard id="1" title="Coca-Cola" price="2.5" />
     </>
   );
 }

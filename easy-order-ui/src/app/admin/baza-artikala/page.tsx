@@ -1,6 +1,7 @@
 "use client";
 
 import ItemCard from "@/app/components/item-card/ItemCard";
+import { useAdmin } from "@/context/AdminProvider";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Col, Input, Modal, Row, Tabs, message } from "antd";
 import { useRef, useState } from "react";
@@ -32,6 +33,8 @@ export default function Page() {
     { id: "6", grupa: "", ime: "Capuccino", cijena: "3" },
     { id: "7", grupa: "", ime: "Produžena kava", cijena: "2" },
   ]);
+
+  const {} = useAdmin();
 
   const onChange = (key: string) => {
     console.log(key);
@@ -167,7 +170,7 @@ export default function Page() {
           (item: any) =>
             checkGroup(item.grupa) && (
               <Col key={item.id}>
-                <ItemCard key={item.id} title={item.ime} price={item.cijena} />
+                <ItemCard id={item.id} title={item.ime} price={item.cijena} />
               </Col>
             )
         )}

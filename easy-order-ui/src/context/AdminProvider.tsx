@@ -1,3 +1,4 @@
+import { useBazaArtikala } from "@/app/hooks/admin/useBazaArtiklala";
 import { useRaspored } from "@/app/hooks/admin/useRaspored";
 import React, { ReactNode, createContext } from "react";
 
@@ -17,6 +18,8 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
     handleNoChair,
     handleGrid,
   } = useRaspored();
+
+  const {} = useBazaArtikala();
 
   return (
     <AdminContext.Provider

@@ -1,15 +1,24 @@
+import { setNewProduct } from "@/app/redux/features/products-slice";
+import { AppDispatch } from "@/app/redux/store";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 
 interface Item {
-  key: string;
+  id: string;
   title: string;
   price?: string;
   addButton?: boolean;
 }
 
 export default function ItemCard({ title, price, addButton }: Item) {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleAddItem = () => {
+    // dispatch(setNewProduct(newProduct));
+  };
+
   return (
     <div
       style={{
@@ -41,6 +50,7 @@ export default function ItemCard({ title, price, addButton }: Item) {
         <Button
           type="primary"
           icon={<PlusOutlined />}
+          onClick={handleAddItem}
           style={{ width: "100%" }}
         >
           Add

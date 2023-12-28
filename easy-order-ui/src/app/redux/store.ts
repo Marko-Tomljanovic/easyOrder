@@ -3,6 +3,7 @@ import authReducer from "./features/auth-slice";
 import loadingReducer from "./features/loading-slice";
 import tableReducer from "./features/table-slice";
 import dividerReducer from "./features/divider-slice";
+import productReducer from "./features/products-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     loadingReducer,
     tableReducer,
     dividerReducer,
+    productReducer,
   },
 });
 
