@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs, TabsProps } from "antd";
-import ItemCard from "../components/item-card/ItemCard";
+import ProductCard from "../components/item-card/ProductCard";
 
 export default function Page() {
   const onChange = (key: string) => {
@@ -39,7 +39,7 @@ export default function Page() {
     <>
       <Tabs defaultActiveKey="1" items={items} onChange={() => onChange} />
       <div style={{ width: "10rem" }}></div>
-      <ItemCard id="1" title="Coca-Cola" price="2.5" />
+      <ProductCard id="1" title="Coca-Cola" price="2.5" />
     </>
   );
 }

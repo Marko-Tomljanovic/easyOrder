@@ -1,6 +1,6 @@
 "use client";
 
-import ItemCard from "@/app/components/item-card/ItemCard";
+import ProductCard from "@/app/components/item-card/ProductCard";
 import { deleteProduct } from "@/app/redux/features/product-slice";
 import { AppDispatch } from "@/app/redux/store";
 import { useAdmin } from "@/context/AdminProvider";
@@ -174,7 +174,11 @@ export default function Page() {
           (item: any) =>
             checkGroup(item.typeOfProduct) && (
               <Col key={item.id}>
-                <ItemCard id={item.id} title={item.name} price={item.price} />
+                <ProductCard
+                  id={item.id}
+                  title={item.name}
+                  price={item.price}
+                />
               </Col>
             )
         )}

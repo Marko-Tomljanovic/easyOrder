@@ -1,7 +1,7 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Modal, Row, Space } from "antd";
 import { useEffect, useState } from "react";
-import ItemCard from "../../item-card/ItemCard";
+import ProductCard from "../../item-card/ProductCard";
 import { sviProizvodi } from "@/constants/mocks/bazaProizvoda";
 import { useAdmin } from "@/context/AdminProvider";
 
@@ -75,7 +75,11 @@ export default function HeaderBaza() {
         <Row gutter={[8, 12]}>
           {filteredItems.map((item: any) => (
             <Col key={item.id}>
-              <ItemCard id={item.id} title={item.name} showAddButton={true} />
+              <ProductCard
+                id={item.id}
+                title={item.name}
+                showAddButton={true}
+              />
             </Col>
           ))}
         </Row>

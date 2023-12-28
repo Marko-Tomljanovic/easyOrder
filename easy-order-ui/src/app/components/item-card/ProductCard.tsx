@@ -1,9 +1,6 @@
-import { setNewProduct } from "@/app/redux/features/product-slice";
-import { AppDispatch } from "@/app/redux/store";
 import { useAdmin } from "@/context/AdminProvider";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
-import { useDispatch } from "react-redux";
 
 interface Item {
   id: string;
@@ -12,7 +9,7 @@ interface Item {
   showAddButton?: boolean;
 }
 
-export default function ItemCard({ id, title, price, showAddButton }: Item) {
+export default function ProductCard({ id, title, price, showAddButton }: Item) {
   const { handleAddProduct } = useAdmin();
 
   return (
@@ -46,7 +43,7 @@ export default function ItemCard({ id, title, price, showAddButton }: Item) {
         <Button
           type="primary"
           icon={<PlusOutlined />}
-          onClick={() => handleAddProduct(title, id)}
+          onClick={() => handleAddProduct(id, title)}
           style={{ width: "100%" }}
         >
           Add
