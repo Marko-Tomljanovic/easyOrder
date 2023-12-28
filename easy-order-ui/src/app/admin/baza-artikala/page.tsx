@@ -1,12 +1,14 @@
 "use client";
 
 import ItemCard from "@/app/components/item-card/ItemCard";
+import { deleteProduct } from "@/app/redux/features/product-slice";
+import { AppDispatch } from "@/app/redux/store";
 import { useAdmin } from "@/context/AdminProvider";
+import { TargetKey } from "@/types/admin";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Col, Input, Modal, Row, Tabs, message } from "antd";
 import { useRef, useState } from "react";
-
-type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
+import { useDispatch } from "react-redux";
 
 const initialItems = [
   {
@@ -19,22 +21,23 @@ const initialItems = [
 const { confirm } = Modal;
 
 export default function Page() {
+  const dispatch = useDispatch<AppDispatch>();
   const [items, setItems] = useState(initialItems);
   const [newLabel, setNewLabel] = useState<string>("");
   const [activeKey, setActiveKey] = useState(initialItems[0].key);
   const newTabIndex = useRef(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [marko, setMarko] = useState<any>([
-    { id: "1", grupa: "", ime: "Kava s mlijekom", cijena: "2" },
-    { id: "2", grupa: "", ime: "Espresso", cijena: "1" },
-    { id: "3", grupa: "2", ime: "Coca-Cola", cijena: "1" },
+    { id: "1", grupa: "0", ime: "Kava s mlijekom", cijena: "2" },
+    { id: "2", grupa: "0", ime: "Espresso", cijena: "1" },
+    { id: "3", grupa: "1", ime: "Coca-Cola", cijena: "1" },
     { id: "4", grupa: "0", ime: "Fanta", cijena: "2" },
     { id: "5", grupa: "0", ime: "Sprite", cijena: "1.5" },
-    { id: "6", grupa: "", ime: "Capuccino", cijena: "3" },
-    { id: "7", grupa: "", ime: "Produžena kava", cijena: "2" },
+    { id: "6", grupa: "0", ime: "Capuccino", cijena: "3" },
+    { id: "7", grupa: "0", ime: "Produžena kava", cijena: "2" },
   ]);
 
-  const {} = useAdmin();
+  const { productList } = useAdmin();
 
   const onChange = (key: string) => {
     console.log(key);
@@ -70,11 +73,12 @@ export default function Page() {
       }
     }
     //brisanje grupe iz liste proizvoda, dodati type kasnije
-    const updatedMarko = marko.map((item: any) => ({
-      ...item,
-      grupa: item.grupa === targetKey ? "" : item.grupa,
-    }));
-    setMarko(updatedMarko);
+    dispatch(deleteProduct({ targetKey }));
+    // const updatedMarko = marko.map((item: any) => ({
+    //   ...item,
+    //   typeOfProduct: item.typeOfProduct === targetKey ? "" : item.typeOfProduct,
+    // }));
+    // setMarko(updatedMarko);
     setItems(newPanes);
     setActiveKey(newActiveKey);
   };
@@ -166,11 +170,11 @@ export default function Page() {
       />
 
       <Row gutter={[8, 16]}>
-        {marko.map(
+        {productList.map(
           (item: any) =>
-            checkGroup(item.grupa) && (
+            checkGroup(item.typeOfProduct) && (
               <Col key={item.id}>
-                <ItemCard id={item.id} title={item.ime} price={item.cijena} />
+                <ItemCard id={item.id} title={item.name} price={item.price} />
               </Col>
             )
         )}

@@ -1,5 +1,6 @@
-import HeaderBaza from "@/app/components/header-components/HeaderBaza";
-import HeaderRaspored from "@/app/components/header-components/HeaderRaspored";
+import HeaderBaza from "@/app/components/header-components/admin/HeaderBaza";
+import HeaderRaspored from "@/app/components/header-components/admin/HeaderRaspored";
+import AdminProvider from "@/context/AdminProvider";
 
 export default function HeaderButtons({ currentTitle }: { currentTitle: any }) {
   return (
@@ -10,8 +11,10 @@ export default function HeaderButtons({ currentTitle }: { currentTitle: any }) {
         marginRight: "25px",
       }}
     >
-      {currentTitle === "Baza artikala" ? <HeaderBaza /> : null}
-      {currentTitle === "Raspored" ? <HeaderRaspored /> : null}
+      <AdminProvider>
+        {currentTitle === "Baza artikala" ? <HeaderBaza /> : null}
+        {currentTitle === "Raspored" ? <HeaderRaspored /> : null}
+      </AdminProvider>
     </div>
   );
 }

@@ -1,8 +1,9 @@
+import { TargetKey } from "@/types/admin";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Product = {
   id: string;
-  typeOfProduct: null | number;
+  typeOfProduct: null | string;
   name: string;
   price: string;
 };
@@ -16,6 +17,13 @@ export const product = createSlice({
   reducers: {
     setNewProduct: (state, action: PayloadAction<Product>) => {
       state.push(action.payload);
+    },
+    deleteProduct: (state, action: PayloadAction<{ targetKey: TargetKey }>) => {
+      const { targetKey } = action.payload;
+      const newState = state.filter(
+        (product) => product.typeOfProduct !== targetKey
+      );
+      return newState;
     },
 
     updateTableProps: (
@@ -37,13 +45,8 @@ export const product = createSlice({
         // tableToUpdate.id = newId;
       }
     },
-    deleteTable: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
-      const newState = state.filter((table) => table.id !== id);
-      return newState;
-    },
   },
 });
 
-export const { setNewProduct } = product.actions;
+export const { setNewProduct, deleteProduct } = product.actions;
 export default product.reducer;

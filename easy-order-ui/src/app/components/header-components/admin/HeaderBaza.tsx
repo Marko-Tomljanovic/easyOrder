@@ -1,8 +1,9 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Modal, Row, Space } from "antd";
-import { useState } from "react";
-import ItemCard from "../item-card/ItemCard";
+import { useEffect, useState } from "react";
+import ItemCard from "../../item-card/ItemCard";
 import { sviProizvodi } from "@/constants/mocks/bazaProizvoda";
+import { useAdmin } from "@/context/AdminProvider";
 
 export default function HeaderBaza() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -30,6 +31,10 @@ export default function HeaderBaza() {
   const filteredItems = sviProizvodi.filter((item: any) =>
     item.name.toLowerCase().includes(searchValue.toLowerCase())
   );
+  const { productList } = useAdmin();
+  useEffect(() => {
+    console.log("productList", productList);
+  }, [productList]);
 
   return (
     <>
@@ -70,7 +75,7 @@ export default function HeaderBaza() {
         <Row gutter={[8, 12]}>
           {filteredItems.map((item: any) => (
             <Col key={item.id}>
-              <ItemCard id={item.id} title={item.name} addButton={true} />
+              <ItemCard id={item.id} title={item.name} showAddButton={true} />
             </Col>
           ))}
         </Row>

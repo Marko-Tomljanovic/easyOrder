@@ -1,23 +1,19 @@
-import { setNewProduct } from "@/app/redux/features/products-slice";
+import { setNewProduct } from "@/app/redux/features/product-slice";
 import { AppDispatch } from "@/app/redux/store";
+import { useAdmin } from "@/context/AdminProvider";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
-import Image from "next/image";
 import { useDispatch } from "react-redux";
 
 interface Item {
   id: string;
   title: string;
   price?: string;
-  addButton?: boolean;
+  showAddButton?: boolean;
 }
 
-export default function ItemCard({ title, price, addButton }: Item) {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleAddItem = () => {
-    // dispatch(setNewProduct(newProduct));
-  };
+export default function ItemCard({ id, title, price, showAddButton }: Item) {
+  const { handleAddProduct } = useAdmin();
 
   return (
     <div
@@ -46,11 +42,11 @@ export default function ItemCard({ title, price, addButton }: Item) {
           ) : null}
         </Col>
       </Row>
-      {addButton ? (
+      {showAddButton ? (
         <Button
           type="primary"
           icon={<PlusOutlined />}
-          onClick={handleAddItem}
+          onClick={() => handleAddProduct(title, id)}
           style={{ width: "100%" }}
         >
           Add
