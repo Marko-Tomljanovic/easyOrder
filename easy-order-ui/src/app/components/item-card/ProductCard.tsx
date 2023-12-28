@@ -46,7 +46,7 @@ export default function ProductCard({ id, title, price, showAddButton }: Item) {
           onClick={() => handleAddProduct(id, title)}
           style={{ width: "100%" }}
         >
-          Add
+          Dodaj
         </Button>
       ) : null}
     </div>
