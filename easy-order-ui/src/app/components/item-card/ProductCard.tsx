@@ -1,7 +1,7 @@
 import { useAdmin } from "@/context/AdminProvider";
 import {
   CheckCircleFilled,
-  CloseOutlined,
+  MinusCircleOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import { Badge, Button, Col, Row } from "antd";
@@ -10,20 +10,22 @@ interface Product {
   id: string;
   title: string;
   price?: string;
-  showAddButton?: boolean;
+  definedProductMode?: boolean;
 }
 
 export default function ProductCard({
   id,
   title,
   price,
-  showAddButton,
+  definedProductMode,
 }: Product) {
   const { productList, handleAddProduct } = useAdmin();
 
   const isSelectedProduct = () => {
-    const rez = productList.some((product: any) => product.id === id);
-    return rez;
+    if (definedProductMode) {
+      return productList.some((product: any) => product.id === id);
+    }
+    return false;
   };
 
   const badgeStyle = {
@@ -65,8 +67,18 @@ export default function ProductCard({
               ) : null}
             </Col>
           </Row>
-          {showAddButton ? (
-            true ? (
+          {definedProductMode ? (
+            isSelectedProduct() ? (
+              <Button
+                icon={<MinusCircleOutlined />}
+                // onClick={() => handleAddProduct(id, title)}
+                style={{
+                  width: "100%",
+                }}
+              >
+                Ukloni
+              </Button>
+            ) : (
               <Button
                 type="primary"
                 icon={<PlusOutlined />}
@@ -74,16 +86,6 @@ export default function ProductCard({
                 style={{ width: "100%" }}
               >
                 Dodaj
-              </Button>
-            ) : (
-              <Button
-                type="text"
-                danger
-                icon={<CloseOutlined />}
-                onClick={() => handleAddProduct(id, title)}
-                style={{ width: "100%" }}
-              >
-                Ukloni
               </Button>
             )
           ) : null}

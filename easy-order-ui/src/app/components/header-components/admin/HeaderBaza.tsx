@@ -51,6 +51,7 @@ export default function HeaderBaza() {
           <Col span={8}>
             <Input
               prefix={<SearchOutlined />}
+              placeholder="Pretražite proizvod"
               value={searchValue}
               onChange={handleSerachInput}
               allowClear
@@ -73,7 +74,7 @@ export default function HeaderBaza() {
               <ProductCard
                 id={product.id}
                 title={product.name}
-                showAddButton={true}
+                definedProductMode
               />
             </Col>
           ))}
