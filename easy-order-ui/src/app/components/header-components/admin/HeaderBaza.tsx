@@ -39,7 +39,7 @@ export default function HeaderBaza() {
         </Button>
       </Space>
       <Modal
-        title="Definirani proizvodi"
+        title={`Definirani proizvodi - ${filteredItems.length}`}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
