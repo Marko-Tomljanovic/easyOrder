@@ -1,7 +1,7 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Modal, Row, Space } from "antd";
 import { useState } from "react";
-import ProductCard from "../../item-card/ProductCard";
+import ProductCard from "../../product-card/ProductCard";
 import { sviProizvodi } from "@/constants/mocks/bazaProizvoda";
 
 export default function HeaderBaza() {

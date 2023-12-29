@@ -19,7 +19,20 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
     handleGrid,
   } = useRaspored();
 
-  const { productList, handleAddProduct } = useBazaArtikala();
+  const {
+    productList,
+    handleAddProduct,
+    activeKey,
+    items,
+    onChange,
+    onEdit,
+    checkGroup,
+    isModalOpen,
+    handleOk,
+    handleCancel,
+    newLabel,
+    handleChange,
+  } = useBazaArtikala();
 
   return (
     <AdminContext.Provider
@@ -37,6 +50,16 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
         handleGrid,
         productList,
         handleAddProduct,
+        activeKey,
+        items,
+        onChange,
+        onEdit,
+        checkGroup,
+        isModalOpen,
+        handleOk,
+        handleCancel,
+        newLabel,
+        handleChange,
       }}
     >
       {children}
