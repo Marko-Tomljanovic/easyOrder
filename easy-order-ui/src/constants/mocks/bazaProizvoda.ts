@@ -28,4 +28,10 @@ export const sviProizvodi = [
   { id: "gin", typeOfProduct: null, name: "Gin", price: "" },
   { id: "pelinkovac", typeOfProduct: null, name: "Pelinkovac", price: "" },
   { id: "kruskovac", typeOfProduct: null, name: "Kruškovac", price: "" },
+  { id: "1", typeOfProduct: null, name: "Pago", price: "" },
+  { id: "n2escaffe", typeOfProduct: null, name: "Nescaffe", price: "" },
+  { id: "s3tock", typeOfProduct: null, name: "Stock", price: "" },
+  { id: "g4in", typeOfProduct: null, name: "Gin", price: "" },
+  { id: "pel5inkovac", typeOfProduct: null, name: "Pelinkovac", price: "" },
+  { id: "krus6kovac", typeOfProduct: null, name: "Kruškovac", price: "" },
 ];

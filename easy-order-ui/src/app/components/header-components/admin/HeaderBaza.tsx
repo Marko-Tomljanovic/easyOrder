@@ -49,15 +49,13 @@ export default function HeaderBaza() {
         onOk={handleOk}
         onCancel={handleCancel}
         width={"83%"}
-        style={{ maxHeight: "80vh", overflowY: "auto" }}
+        style={{ top: 30 }}
         footer={null}
       >
         <Row
           style={{
             marginBottom: "10px",
             position: "sticky",
-            top: 0,
-            zIndex: 1,
           }}
           align={"middle"}
           justify={"center"}
@@ -72,7 +70,7 @@ export default function HeaderBaza() {
           </Col>
         </Row>
 
-        <Row gutter={[8, 12]}>
+        <Row gutter={[8, 12]} style={{ maxHeight: "75vh", overflowY: "auto" }}>
           {filteredItems.map((item: any) => (
             <Col key={item.id}>
               <ProductCard
