@@ -1,9 +1,8 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Modal, Row, Space } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "../../item-card/ProductCard";
 import { sviProizvodi } from "@/constants/mocks/bazaProizvoda";
-import { useAdmin } from "@/context/AdminProvider";
 
 export default function HeaderBaza() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -31,10 +30,6 @@ export default function HeaderBaza() {
   const filteredItems = sviProizvodi.filter((item: any) =>
     item.name.toLowerCase().includes(searchValue.toLowerCase())
   );
-  const { productList } = useAdmin();
-  useEffect(() => {
-    console.log("productList", productList);
-  }, [productList]);
 
   return (
     <>
@@ -52,14 +47,7 @@ export default function HeaderBaza() {
         style={{ top: 30 }}
         footer={null}
       >
-        <Row
-          style={{
-            marginBottom: "10px",
-            position: "sticky",
-          }}
-          align={"middle"}
-          justify={"center"}
-        >
+        <Row align={"middle"} justify={"center"}>
           <Col span={8}>
             <Input
               prefix={<SearchOutlined />}
@@ -70,12 +58,21 @@ export default function HeaderBaza() {
           </Col>
         </Row>
 
-        <Row gutter={[8, 12]} style={{ maxHeight: "75vh", overflowY: "auto" }}>
-          {filteredItems.map((item: any) => (
-            <Col key={item.id}>
+        <Row
+          gutter={[10, 10]}
+          style={{
+            maxHeight: "75vh",
+            overflowY: "auto",
+            paddingBottom: "10px",
+          }}
+        >
+          <Col span={24}></Col>
+          <div style={{ marginTop: "10px" }}></div>
+          {filteredItems.map((product: any) => (
+            <Col key={product.id}>
               <ProductCard
-                id={item.id}
-                title={item.name}
+                id={product.id}
+                title={product.name}
                 showAddButton={true}
               />
             </Col>
