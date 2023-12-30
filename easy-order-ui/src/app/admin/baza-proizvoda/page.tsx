@@ -1,6 +1,6 @@
 "use client";
 
-import ModalNazivGrupe from "@/app/components/modal/ModalNazivGrupe";
+import ModalNazivGrupe from "@/app/components/modal/admin/ModalNazivGrupe";
 import ProductCard from "@/app/components/product-card/ProductCard";
 import { useAdmin } from "@/context/AdminProvider";
 import { Col, Row, Tabs } from "antd";
