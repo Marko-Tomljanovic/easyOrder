@@ -19,7 +19,7 @@ const initialItems = [
 
 const { confirm } = Modal;
 
-export const useBazaArtikala = () => {
+export const useBazaProizvoda = () => {
   const dispatch = useDispatch<AppDispatch>();
   const newTabIndex = useRef(0);
   const [items, setItems] = useState(initialItems);

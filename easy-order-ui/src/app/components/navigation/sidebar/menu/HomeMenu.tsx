@@ -37,16 +37,16 @@ export default function HomeMenu() {
       router.push("/dashboard");
       return;
     }
-    if (e.key === "meni") {
-      router.push("/meni");
+    if (e.key === "cjenik") {
+      router.push("/cjenik");
       return;
     }
     if (e.key === "statistika") {
       router.push("/admin/statistika");
       return;
     }
-    if (e.key === "bazaArtikala") {
-      router.push("/admin/baza-artikala");
+    if (e.key === "bazaProizvoda") {
+      router.push("/admin/baza-proizvoda");
       return;
     }
     if (e.key === "raspored") {
@@ -76,17 +76,17 @@ export default function HomeMenu() {
       items={[
         { key: "dashboard", icon: <HomeOutlined />, label: "Dashboard" },
         {
-          key: "meni",
+          key: "cjenik",
           icon: <MenuOutlined />,
-          label: "Meni",
+          label: "Cjenik",
         },
         {
           key: "admin",
           children: [
             {
-              key: "bazaArtikala",
+              key: "bazaProizvoda",
               icon: <DatabaseOutlined />,
-              label: "Baza artikala",
+              label: "Baza proizvoda",
             },
             {
               key: "raspored",

@@ -1,4 +1,4 @@
-import { useBazaArtikala } from "@/app/hooks/admin/useBazaArtiklala";
+import { useBazaProizvoda } from "@/app/hooks/admin/useBazaProizvoda";
 import { useRaspored } from "@/app/hooks/admin/useRaspored";
 import React, { ReactNode, createContext } from "react";
 
@@ -32,7 +32,7 @@ export default function AdminProvider({ children }: { children: ReactNode }) {
     handleCancel,
     newLabel,
     handleChange,
-  } = useBazaArtikala();
+  } = useBazaProizvoda();
 
   return (
     <AdminContext.Provider

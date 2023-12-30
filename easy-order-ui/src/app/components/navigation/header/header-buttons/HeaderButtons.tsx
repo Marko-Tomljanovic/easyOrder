@@ -12,7 +12,7 @@ export default function HeaderButtons({ currentTitle }: { currentTitle: any }) {
       }}
     >
       <AdminProvider>
-        {currentTitle === "Baza artikala" ? <HeaderBaza /> : null}
+        {currentTitle === "Baza proizvoda" ? <HeaderBaza /> : null}
         {currentTitle === "Raspored" ? <HeaderRaspored /> : null}
       </AdminProvider>
     </div>
